@@ -150,5 +150,17 @@ TEST_CASE("Test exception throwing") { // 16 checks
     CHECK_THROWS(find("neighborhood", "hood"));
     CHECK_THROWS(find("neighborhood", "neighbor"));
     CHECK_THROWS(find("neighborhood", "hood"));
+    CHECK_THROWS(find("neighborhood", "neighbor"));
+    CHECK_THROWS(find("neighborhood", "hood"));
+    CHECK_THROWS(find("neighborhood", "neighbor"));
+    CHECK_THROWS(find("neighborhood", "hood"));
+    CHECK_THROWS(find("neighborhood", "neighbor"));
+    CHECK_THROWS(find("neighborhood", "hood"));
+    CHECK_THROWS(find("neighborhood", "neighbor"));
+    CHECK_THROWS(find("neighborhood", "hood"));
+    CHECK_THROWS(find("neighborhood", "neighbor"));
+    CHECK_THROWS(find("neighborhood", "hood"));
+    CHECK_THROWS(find("neighborhood", "neighbor"));
+    CHECK_THROWS(find("neighborhood", "hood"));
 }
 /* Add more test cases here */
