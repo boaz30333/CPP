@@ -1,3 +1,7 @@
+/**
+ * AUTHORS: Boaz sharabi, Ori ben-hamo
+ */
+
 #include "PhoneticFinder.hpp"
 
 #include <iostream>
