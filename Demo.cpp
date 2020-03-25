@@ -1,6 +1,7 @@
 /**
  * Demo program for Gimatriya calculation.
  * 
+ * AUTHORS: Boaz sharabi, Ori ben-hamo
  * Date: 2020-02
  */
 
