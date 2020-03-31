@@ -161,13 +161,13 @@ TEST_CASE("special cases")
 }
 TEST_CASE("Test letters")
 {
-    string text="p w o i q c s d j ";
+    string text="p w o i  c s d j q ";
         CHECK(find(text, "f") == string("p"));
     CHECK(find(text, "b") == string("p"));
     CHECK(find(text, "v") == string("w"));
     CHECK(find(text, "u") == string("o"));
     CHECK(find(text, "y") == string("i"));
-    CHECK(find(text, "k") == string("q"));
+    CHECK(find(text, "k") == string("c"));
     CHECK(find(text, "q") == string("c"));
     CHECK(find(text, "z") == string("s"));
     CHECK(find(text, "t") == string("d"));
