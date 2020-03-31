@@ -1,3 +1,6 @@
+/**
+ * AUTHORS: Boaz sharabi, Ori ben-hamo
+ */
 
 #include "doctest.h"
 #include "PhoneticFinder.hpp"
