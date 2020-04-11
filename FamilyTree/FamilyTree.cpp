@@ -1,80 +1,58 @@
+
+
+
+
+
+
+
 #include "FamilyTree.hpp"
 #include <iostream>
 namespace family{
 using namespace std;
-Tree::Tree(){
-	root = NULL;
+Tree::Tree(string name){
+	root=(person *) malloc(sizeof(person));
+	if(root==NULL) {
+		cout<<"error"<<endl;
+		return;
+	}
+	root->name = name;
+	root->left=NULL;
+	root->right=NULL;
 }
 
 Tree::~Tree(){
-	remove(root->name);
+	remove(root);
 }
 
-void Tree::remove(string name){
-	if(leaf != NULL){
-		destroy_tree(leaf->left);
-		destroy_tree(leaf->right);
-		delete leaf;
+void Tree::remove(person * person){
+	if(person != NULL){
+		remove(person->left);
+		remove(person->right);
+		delete person;
 	}
 }
-
-void Tree::insert(int key, node *leaf){
-
-	if(key < leaf->value){
-		if(leaf->left != NULL){
-			insert(key, leaf->left);
-		}else{
-			leaf->left = new node;
-			leaf->left->value = key;
-			leaf->left->left = NULL;
-			leaf->left->right = NULL;
-		}
-	}else if(key >= leaf->value){
-		if(leaf->right != NULL){
-			insert(key, leaf->right);
-		}else{
-			leaf->right = new node;
-			leaf->right->value = key;
-			leaf->right->right = NULL;
-			leaf->right->left = NULL;
-		}
+	Tree& Tree:: addFather(string child,string father){
+		return *this;
 	}
-
-}
-
-void Tree::insert(int key){
-	if(root != NULL){
-		insert(key, root);
-	}else{
-		root = new node;
-		root->value = key;
-		root->left = NULL;
-		root->right = NULL;
+	Tree& Tree:: addMother(string child,string mother){
+		return *this;
 	}
-}
+	void Tree:: remove(string name){
 
-node *Tree::search(int key, node *leaf){
-	if(leaf != NULL){
-		if(key == leaf->value){
-			return leaf;
-		}
-		if(key < leaf->value){
-			return search(key, leaf->left);
-		}else{
-			return search(key, leaf->right);
-		}
-	}else{
-		return NULL;
 	}
+	void Tree::  display() const{
+return;
+	}
+string Tree::relation(string person) const{
+return person;
+}
+string Tree::find(string person) const{
+return person;
 }
 
-node *Tree::search(int key){
-	return search(key, root);
-}
-
-void Tree::destroy_tree(){
-	destroy_tree(root);
-}
-
+	person * Tree:: search(string, person * root){
+		return root;
+	}
+ 
 
 }
