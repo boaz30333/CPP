@@ -16,8 +16,8 @@ Tree::Tree(string name){
 		return;
 	}
 	root->name = name;
-	root->left=NULL;
-	root->right=NULL;
+	root->father=NULL;
+	root->mother=NULL;
 }
 
 Tree::~Tree(){
@@ -26,33 +26,43 @@ Tree::~Tree(){
 
 void Tree::remove(person * person){
 	if(person != NULL){
-		remove(person->left);
-		remove(person->right);
+		remove(person->father);
+		remove(person->mother);
 		delete person;
 	}
 }
-	Tree& Tree:: addFather(string child,string father){
-		return *this;
-	}
-	Tree& Tree:: addMother(string child,string mother){
-		return *this;
-	}
-	void Tree:: remove(string name){
 
-	}
-	void Tree::  display() const{
-return;
-	}
+Tree& Tree:: addFather(string child,string father){
+	return *this;
+}
+
+Tree& Tree:: addMother(string child,string mother){
+	return *this;
+}
+
+void Tree:: remove(string name){
+
+}
+
+void Tree::  display() const{
+	return;
+}
+
 string Tree::relation(string person) const{
-return person;
-}
-string Tree::find(string person) const{
-return person;
+	return person;
 }
 
-	person * Tree:: search(string, person * root){
-		return root;
-	}
- 
+string Tree::find(string person) const{
+	return person;
+}
+
+person * Tree:: search(string, person * root){
+	return root;
+}
+
+person * Tree::get_root(){
+	return root;
+}
+
 
 }
