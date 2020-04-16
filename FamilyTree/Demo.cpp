@@ -43,7 +43,12 @@ int main() {
 
 	T.remove("Avraham"); // removes Avraham and Terah
 	cout << T.relation("Terah") << endl;  // prints "unrelated"
-	 T.display();                        // displays the tree in a human-friendly format.
-
+	T.display();                        // displays the tree in a human-friendly format.
+	T.remove("Yaakov");
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << "after remove Yaakov from the tree:" << endl;
+	T.display();
     return 0;
 }

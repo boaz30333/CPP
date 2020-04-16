@@ -30,6 +30,7 @@ namespace family{
 
 	private:
 		person * search(string, person * root);
+		person ** searchRemove(string name, person ** root);
 		void remove(person ** person);
 		person *root;
 		void print2D(person *root) ;

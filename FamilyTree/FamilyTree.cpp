@@ -54,10 +54,11 @@ Tree& Tree:: addMother(string child,string mother){
 }
 
 void Tree:: remove(string name){
-person *son = search(name,this->root);
+person **son = searchRemove(name,&this->root);
 	if(son==NULL)
 	  __throw_invalid_argument("Did not find the person in family tree");
-	remove(&son);
+	remove(son);
+	*son=NULL;
 }
 
 void Tree::  display() {
@@ -120,9 +121,25 @@ person * Tree:: search(string name, person * root){
 	if (right!=NULL) return right;
 	}
 	
-	if(root->father!=NULL){
+	if(root->mother!=NULL){
 	person * left = search(name,root->mother);
 	if(left!=NULL) return left;
+	}
+	return NULL;
+	
+}
+
+person ** Tree:: searchRemove(string name, person ** root){
+	if((*root)->name==name) 
+		  return root;
+	if((*root)->father!=NULL){
+		person ** right = searchRemove(name,&(*root)->father);
+		if (right!=NULL) return right;
+	}
+	
+	if((*root)->mother!=NULL){
+		person ** left = searchRemove(name,&(*root)->mother);
+		if(left!=NULL) return left;
 	}
 	return NULL;
 	
