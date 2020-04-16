@@ -17,7 +17,7 @@ namespace family{
 		Tree& addFather(string child,string father);
 		Tree& addMother(string child,string mother);
 		void remove(string name);
-		void display() const;
+		void display() ;
 		string relation(string person) const;
 		string find(string person) const;
 		//string get_name();
@@ -30,8 +30,12 @@ namespace family{
 
 	private:
 		person * search(string, person * root);
-		void remove(person * person);
+		void remove(person ** person);
 		person *root;
+		void print2D(person *root) ;
+		void print2DUtil(person *root, int space);
+
+
 	};
 }
 
