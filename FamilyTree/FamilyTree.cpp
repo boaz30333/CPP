@@ -56,7 +56,7 @@ string Tree::find(string person) const{
 	return person;
 }
 
-person * Tree:: search(string, person * root){
+person * Tree::search(string, person * root){
 	return root;
 }
 
