@@ -9,18 +9,7 @@ namespace family{
 		person * father;
 		person * mother;
 	};
-class Trunk
-{
-	public:
-    Trunk *prev;
-    string str;
 
-    Trunk(Trunk *prev, string str)
-    {
-        this->prev = prev;
-        this->str = str;
-    }
-};
 	class Tree{
 	public:
 		Tree(string name);
@@ -43,8 +32,9 @@ class Trunk
 		person * search(string, person * root);
 		void remove(person ** person);
 		person *root;
-		void printTree(person *root, Trunk *prev, bool isLeft);
-		void showTrunks(Trunk *p);
+		void print2D(person *root) ;
+		void print2DUtil(person *root, int space);
+
 
 	};
 }

@@ -7,6 +7,7 @@
 
 #include "FamilyTree.hpp"
 #include <iostream>
+#define COUNT 10 
 namespace family{
 using namespace std;
 Tree::Tree(string name){
@@ -59,53 +60,42 @@ person *son = search(name,this->root);
 	remove(&son);
 }
 
-void Tree::  display(){
+void Tree::  display() {
 	
-	printTree(this->root, nullptr, false);
+print2D(this->root);
 
 }
-void showTrunks(family::Trunk *p)
-{
-    if (p == nullptr)
-        return;
-    showTrunks(p->prev);
-
-    cout << p->str;
-}
-// Recursive function to print binary tree
-// It uses inorder traversal
-void Tree::printTree(person *root, family::Trunk *prev, bool isLeft)
-{
-    if (root == nullptr)
-        return;
-    
-    string prev_str = "    ";
-    family::Trunk *trunk = new family::Trunk(prev, prev_str);
-
-    printTree(root->mother, trunk, true);
-
-    if (!prev)
-        trunk->str = "---";
-    else if (isLeft)
-    {
-        trunk->str = ".---";
-        prev_str = "   |";
-    }
-    else
-    {
-        trunk->str = "`---";
-        prev->str = prev_str;
-    }
-
-    showTrunks(trunk);
-    cout << root->name << endl;
-    if (prev)
-        prev->str = prev_str;
-    trunk->str = "   |";
-
-    printTree(root->father, trunk, false);
-
-}
+// Function to print binary tree in 2D  
+// It does reverse inorder traversal  
+void Tree::print2DUtil(person *root, int space)  
+{  
+    // Base case  
+    if (root == NULL)  
+        return;  
+  
+    // Increase distance between levels  
+    space += COUNT;  
+  
+    // Process right child first  
+    print2DUtil(root->father, space);  
+  
+    // Print current node after space  
+    // count  
+    cout<<endl;  
+    for (int i = COUNT; i < space; i++)  
+        cout<<" ";  
+    cout<<root->name<<"\n";  
+  
+    // Process left child  
+    print2DUtil(root->mother, space);  
+}  
+  
+// Wrapper over print2DUtil()  
+void Tree::print2D(person *root)  
+{  
+    // Pass initial space count as 0  
+    print2DUtil(root, 0);  
+}  
 
 string Tree::relation(string person) const{
 	return person;
