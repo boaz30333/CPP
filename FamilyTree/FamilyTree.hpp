@@ -9,7 +9,18 @@ namespace family{
 		person * father;
 		person * mother;
 	};
+class Trunk
+{
+	public:
+    Trunk *prev;
+    string str;
 
+    Trunk(Trunk *prev, string str)
+    {
+        this->prev = prev;
+        this->str = str;
+    }
+};
 	class Tree{
 	public:
 		Tree(string name);
@@ -17,7 +28,7 @@ namespace family{
 		Tree& addFather(string child,string father);
 		Tree& addMother(string child,string mother);
 		void remove(string name);
-		void display() const;
+		void display() ;
 		string relation(string person) const;
 		string find(string person) const;
 		//string get_name();
@@ -30,8 +41,11 @@ namespace family{
 
 	private:
 		person * search(string, person * root);
-		void remove(person * person);
+		void remove(person ** person);
 		person *root;
+		void printTree(person *root, Trunk *prev, bool isLeft);
+		void showTrunks(Trunk *p);
+
 	};
 }
 
