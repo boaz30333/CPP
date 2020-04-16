@@ -47,6 +47,14 @@ TEST_CASE("Test find")
   CHECK_THROWS(t.find("sister"));
   CHECK_THROWS(t.find("nephew"));
   CHECK_THROWS(t.find("niece"));
+    CHECK_THROWS(t.find("grandmother"));
+  CHECK_THROWS(t.find("grand_mother"));
+  CHECK_THROWS(t.find("dad"));
+  CHECK_THROWS(t.find("mom"));
+  CHECK_THROWS(t.find("grandpa"));
+  CHECK_THROWS(t.find("grandad"));
+  CHECK_THROWS(t.find("grandma"));
+  CHECK_THROWS(t.find("Great grandmother"));
 }
 
 TEST_CASE("Test addFather")
@@ -147,6 +155,7 @@ TEST_CASE("Test remove")
   CHECK_NOTHROW(t.relation("rivka"));
 
   t.remove("david");
+   CHECK_NOTHROW(t.relation("keren"));
   CHECK(t.relation("david") == string("unrelated"));
   CHECK(t.relation("nisim") == string("unrelated"));
   CHECK(t.relation("rivka") == string("unrelated"));
@@ -158,7 +167,7 @@ TEST_CASE("Test remove")
   CHECK(t.relation("miriam") == string("unrelated"));
 }
 
-TEST_CASE("Test remove")
+TEST_CASE("Test remove 2")
 {
   family::Tree t("ori");
   t.addFather("ori", "yosef");
