@@ -5,7 +5,8 @@
 namespace family{
     using namespace std;
     struct person{
-		string name;
+		string name="";
+		string rltd="";
 		person * father;
 		person * mother;
 	};
@@ -18,8 +19,8 @@ namespace family{
 		Tree& addMother(string child,string mother);
 		void remove(string name);
 		void display() ;
-		string relation(string person) const;
-		string find(string person) const;
+		string relation(string person);
+		string find(string person);
 		//string get_name();
 		person * get_root();
 		//person * get_left();
@@ -29,6 +30,7 @@ namespace family{
 
 
 	private:
+		person *find(string rltd, person * root);
 		person * search(string, person * root);
 		person ** searchRemove(string name, person ** root);
 		void remove(person ** person);

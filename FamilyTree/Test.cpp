@@ -1,9 +1,7 @@
-
 #include "doctest.h"
+#include <string>
 #include "FamilyTree.hpp"
 using namespace family;
-
-#include <string>
 using namespace std;
 
 TEST_CASE("Test find")
@@ -57,21 +55,6 @@ TEST_CASE("Test find")
   CHECK_THROWS(t.find("Great grandmother"));
 }
 
-TEST_CASE("Test addFather")
-{
-  family::Tree t("ori");
-  t.addFather("ori", "yosef");
-  t.addFather("yosef", "yitzhak");
-  t.addFather("yitzhak", "yaakov");
-  t.addFather("yaakov", "david");
-  t.addFather("david", "nisim");
-
-  CHECK(t.find("father") == string("yosef"));
-  CHECK(t.find("grandfather") == string("yitzhak"));
-  CHECK(t.find("great-grandfather") == string("yaakov"));
-  CHECK(t.find("great-great-grandfather") == string("david"));
-  CHECK(t.find("great-great-great-grandfather") == string("nisim"));
-}
 
 TEST_CASE("Test addMother")
 {
@@ -86,6 +69,21 @@ TEST_CASE("Test addMother")
   CHECK(t.find("great-grandmother") == string("yaakov"));
   CHECK(t.find("great-great-grandmother") == string("david"));
   CHECK(t.find("great-great-great-grandmother") == string("nisim"));
+}
+
+TEST_CASE("Test addFather")
+{
+  family::Tree t("ori");
+  t.addFather("ori", "yosef");
+  t.addFather("yosef", "yitzhak");
+  t.addFather("yitzhak", "yaakov");
+  t.addFather("yaakov", "david");
+  t.addFather("david", "nisim");
+  CHECK(t.find("father") == string("yosef"));
+  CHECK(t.find("grandfather") == string("yitzhak"));
+  CHECK(t.find("great-grandfather") == string("yaakov"));
+  CHECK(t.find("great-great-grandfather") == string("david"));
+  CHECK(t.find("great-great-great-grandfather") == string("nisim"));
 }
 
 TEST_CASE("Test relation")
@@ -128,7 +126,6 @@ TEST_CASE("Test relation")
   CHECK(t.relation("jojo") == string("unrelated"));
   CHECK(t.relation("ori") == string("me"));
 }
-
 TEST_CASE("Test remove")
 {
   family::Tree t("ori");
@@ -166,7 +163,6 @@ TEST_CASE("Test remove")
   CHECK(t.relation("yaakov") == string("unrelated"));
   CHECK(t.relation("miriam") == string("unrelated"));
 }
-
 TEST_CASE("Test remove 2")
 {
   family::Tree t("ori");
@@ -198,4 +194,3 @@ TEST_CASE("father already exist- throw exeption")
   t.addFather("ori", "yosef");
   CHECK_THROWS(t.addFather("ori", "moshe"));
 }
-

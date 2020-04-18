@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 #include "FamilyTree.hpp"
 #include <iostream>
 #define COUNT 10 
@@ -16,6 +10,7 @@ Tree::Tree(string name){
 		cout<<"error"<<endl;
 		return;
 	}
+	root->rltd="me";
 	root->name = name;
 	root->father=NULL;
 	root->mother=NULL;
@@ -36,9 +31,16 @@ void Tree::remove(person ** person){
 Tree& Tree:: addFather(string child,string father){
 	person *son = search(child,this->root);
 	if(son==NULL)
-	  __throw_invalid_argument("Did not find the person in family tree");
+	  __throw_invalid_argument("try to add father to son not exist");
+		if(son->father!=NULL)
+		  __throw_logic_error("try to add father to son already has ons");
 	son->father=(person *) malloc(sizeof(person));
 	(son->father)->name=father;
+	if(son->rltd==string("me")) 
+	(son->father)->rltd="father";
+	else if (son->rltd==string("father")||son->rltd==string("mother")) 
+	(son->father)->rltd="grandfather";
+	else (son->father)->rltd="great-"+son->rltd;
 	return *this;
 
 	
@@ -47,9 +49,16 @@ Tree& Tree:: addFather(string child,string father){
 Tree& Tree:: addMother(string child,string mother){
 		person *son = search(child,this->root);
 	if(son==NULL)
-	  __throw_invalid_argument("Did not find the person in family tree");
+	  __throw_invalid_argument("try to add mother to son not exist");
+		if(son->mother!=NULL)
+		  __throw_logic_error("try to add mother to son already has ons");
 	son->mother=(person *) malloc(sizeof(person));
 	(son->mother)->name=mother;
+	if(son->rltd==string("me")) 
+	(son->mother)->rltd="mother";
+	else if (son->rltd==string("mother")||son->rltd==string("father")) 
+	(son->mother)->rltd="grandmother";
+	else (son->mother)->rltd="great-"+son->rltd;
 	return *this;
 }
 
@@ -98,14 +107,19 @@ void Tree::print2D(person *root)
     print2DUtil(root, 0);  
 }  
 
-string Tree::relation(string person) const{
-	return person;
+string Tree::relation(string person){
+family::person * son = search(person,this->root);
+if(son==nullptr) return "unrelated";
+return son->rltd;
+
 }
 
-string Tree::find(string person) const{
-	return person;
+string Tree::find(string rltd){
+person * son =find(rltd, this->root);
+if(son==nullptr)
+__throw_invalid_argument("try find related not exist");
+return son->name;
 }
-
 
 
 /**
@@ -120,7 +134,6 @@ person * Tree:: search(string name, person * root){
 	person * right = search(name,root->father);
 	if (right!=NULL) return right;
 	}
-	
 	if(root->mother!=NULL){
 	person * left = search(name,root->mother);
 	if(left!=NULL) return left;
@@ -128,7 +141,20 @@ person * Tree:: search(string name, person * root){
 	return NULL;
 	
 }
-
+person * Tree:: find(string rltd, person * root){
+	if(root->rltd==rltd) return root;
+	if(root->father!=NULL){
+	person * right = find(rltd,root->father);
+	if (right!=NULL) return right;
+	}
+	
+	if(root->mother!=NULL){
+	person * left = find(rltd,root->mother);
+	if(left!=NULL) return left;
+	}
+	return NULL;
+	
+}
 person ** Tree:: searchRemove(string name, person ** root){
 	if((*root)->name==name) 
 		  return root;
@@ -144,7 +170,6 @@ person ** Tree:: searchRemove(string name, person ** root){
 	return NULL;
 	
 }
-
 person * Tree::get_root(){
 	return root;
 }
