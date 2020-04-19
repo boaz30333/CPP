@@ -4,6 +4,36 @@
 using namespace family;
 using namespace std;
 
+
+TEST_CASE("Test addMother")
+{
+  family::Tree t("ori");
+  t.addMother("ori", "hana");
+  t.addMother("hana", "sara");
+  t.addMother("sara", "miriam");
+  t.addMother("miriam", "rivka");
+  t.addMother("rivka", "hadas");
+  CHECK(t.find("mother") == string("yosef"));
+  CHECK(t.find("grandmother") == string("yitzhak"));
+  CHECK(t.find("great-grandmother") == string("yaakov"));
+  CHECK(t.find("great-great-grandmother") == string("david"));
+  CHECK(t.find("great-great-great-grandmother") == string("nisim"));
+}
+
+TEST_CASE("Test addFather")
+{
+  family::Tree t("ori");
+  t.addFather("ori", "yosef");
+  t.addFather("yosef", "yitzhak");
+  t.addFather("yitzhak", "yaakov");
+  t.addFather("yaakov", "david");
+  t.addFather("david", "nisim");
+  CHECK(t.find("father") == string("yosef"));
+  CHECK(t.find("grandfather") == string("yitzhak"));
+  CHECK(t.find("great-grandfather") == string("yaakov"));
+  CHECK(t.find("great-great-grandfather") == string("david"));
+  CHECK(t.find("great-great-great-grandfather") == string("nisim"));
+}
 TEST_CASE("Test find")
 {
   family::Tree t("ori");
@@ -45,7 +75,6 @@ TEST_CASE("Test find")
   CHECK_THROWS(t.find("sister"));
   CHECK_THROWS(t.find("nephew"));
   CHECK_THROWS(t.find("niece"));
-    CHECK_THROWS(t.find("grandmother"));
   CHECK_THROWS(t.find("grand_mother"));
   CHECK_THROWS(t.find("dad"));
   CHECK_THROWS(t.find("mom"));
@@ -56,35 +85,7 @@ TEST_CASE("Test find")
 }
 
 
-TEST_CASE("Test addMother")
-{
-  family::Tree t("ori");
-  t.addMother("ori", "hana");
-  t.addMother("hana", "sara");
-  t.addMother("sara", "miriam");
-  t.addMother("miriam", "rivka");
-  t.addMother("rivka", "hadas");
-  CHECK(t.find("mother") == string("yosef"));
-  CHECK(t.find("grandmother") == string("yitzhak"));
-  CHECK(t.find("great-grandmother") == string("yaakov"));
-  CHECK(t.find("great-great-grandmother") == string("david"));
-  CHECK(t.find("great-great-great-grandmother") == string("nisim"));
-}
 
-TEST_CASE("Test addFather")
-{
-  family::Tree t("ori");
-  t.addFather("ori", "yosef");
-  t.addFather("yosef", "yitzhak");
-  t.addFather("yitzhak", "yaakov");
-  t.addFather("yaakov", "david");
-  t.addFather("david", "nisim");
-  CHECK(t.find("father") == string("yosef"));
-  CHECK(t.find("grandfather") == string("yitzhak"));
-  CHECK(t.find("great-grandfather") == string("yaakov"));
-  CHECK(t.find("great-great-grandfather") == string("david"));
-  CHECK(t.find("great-great-great-grandfather") == string("nisim"));
-}
 
 TEST_CASE("Test relation")
 {
