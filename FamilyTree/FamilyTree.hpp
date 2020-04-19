@@ -4,14 +4,16 @@
 
 namespace family{
     using namespace std;
-    struct person{
-		string name="";
-		string rltd="";
+
+		    struct person{
+		string name;
+		string rltd;
 		person * father;
 		person * mother;
 	};
 
 	class Tree{
+
 	public:
 		Tree(string name);
 		~Tree();

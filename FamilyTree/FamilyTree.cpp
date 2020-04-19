@@ -1,6 +1,7 @@
 
 #include "FamilyTree.hpp"
 #include <iostream>
+#include <string>
 
 #define COUNT 10 
 namespace family{
@@ -13,8 +14,9 @@ Tree::Tree(string name){
 	}
 	root->rltd="me";
 	root->name = name;
-//	root->father=NULL;
-//	root->mother=NULL;
+	root->father=NULL;
+	root->mother=NULL;
+
 }
 
 Tree::~Tree(){
@@ -36,13 +38,17 @@ Tree& Tree:: addFather(string child,string father){
 		if(son->father!=NULL)
 		  __throw_logic_error("try to add father to son already has ons");
 	son->father=(person *) malloc(sizeof(person));
-//	strcpy((son->father)->name,father.c_str());
+	if(son->father==nullptr) __throw_bad_alloc;
+
 	(son->father)->name=father;
 	if(son->rltd==string("me")) 
 	(son->father)->rltd="father";
 	else if (son->rltd==string("father")||son->rltd==string("mother")) 
 	(son->father)->rltd="grandfather";
-	else (son->father)->rltd="great-"+son->rltd;
+	else {(son->father)->rltd="great-"+son->rltd;
+		size_t found =(son->father)->rltd.find("mother");
+	if(found!=  string::npos) (son->father)->rltd.replace(found,6,"father");
+	}
 	return *this;
 
 	
@@ -55,14 +61,17 @@ Tree& Tree:: addMother(string child,string mother){
 		if(son->mother!=NULL)
 		  __throw_logic_error("try to add mother to son already has ons");
 	son->mother=(person *) malloc(sizeof(person));
-	//(son->mother)->name= new (mother);
-//	strcpy((son->mother)->name,mother.c_str());
+	if(son->mother==nullptr) __throw_bad_alloc;
 	(son->mother)->name=mother;
 	if(son->rltd==string("me")) 
 	(son->mother)->rltd="mother";
 	else if (son->rltd==string("mother")||son->rltd==string("father")) 
 	(son->mother)->rltd="grandmother";
-	else (son->mother)->rltd="great-"+son->rltd;
+	else {(son->mother)->rltd="great-"+son->rltd;
+	size_t found =(son->mother)->rltd.find("father");
+	if(found!= string::npos) (son->mother)->rltd.replace(found,6,"mother");
+	}
+
 	return *this;
 }
 
