@@ -1,6 +1,7 @@
 
 #include "FamilyTree.hpp"
 #include <iostream>
+
 #define COUNT 10 
 namespace family{
 using namespace std;
@@ -12,8 +13,8 @@ Tree::Tree(string name){
 	}
 	root->rltd="me";
 	root->name = name;
-	root->father=NULL;
-	root->mother=NULL;
+//	root->father=NULL;
+//	root->mother=NULL;
 }
 
 Tree::~Tree(){
@@ -35,6 +36,7 @@ Tree& Tree:: addFather(string child,string father){
 		if(son->father!=NULL)
 		  __throw_logic_error("try to add father to son already has ons");
 	son->father=(person *) malloc(sizeof(person));
+//	strcpy((son->father)->name,father.c_str());
 	(son->father)->name=father;
 	if(son->rltd==string("me")) 
 	(son->father)->rltd="father";
@@ -53,6 +55,8 @@ Tree& Tree:: addMother(string child,string mother){
 		if(son->mother!=NULL)
 		  __throw_logic_error("try to add mother to son already has ons");
 	son->mother=(person *) malloc(sizeof(person));
+	//(son->mother)->name= new (mother);
+//	strcpy((son->mother)->name,mother.c_str());
 	(son->mother)->name=mother;
 	if(son->rltd==string("me")) 
 	(son->mother)->rltd="mother";
