@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <complex>
-//using namespace std;
+
 
 namespace solver{
     using namespace std;
@@ -27,12 +27,18 @@ namespace solver{
             double im;
         public: 
            friend ComplexVariable operator*(int n, ComplexVariable x);
+           friend ComplexVariable operator/(ComplexVariable x, int n);
             friend ComplexVariable operator-(ComplexVariable n);
-            friend ComplexVariable operator-(int n, ComplexVariable x);
+            friend ComplexVariable operator-(ComplexVariable x, int n);
+            friend ComplexVariable operator-(ComplexVariable n, ComplexVariable m);
             friend ComplexVariable operator^(ComplexVariable n, int pow);
             friend ComplexVariable operator==(ComplexVariable n, ComplexVariable m);
+            friend ComplexVariable operator==(ComplexVariable n, int m);
             ComplexVariable operator()(ComplexVariable n);
             friend ComplexVariable operator+(ComplexVariable n, ComplexVariable m);
+            friend ComplexVariable operator+(ComplexVariable n, int m);
+            friend ComplexVariable operator+(int n, ComplexVariable x);
+            friend ComplexVariable operator+(ComplexVariable n, std::complex<double>);
     };
 
     double operator*(double n, RealVariable x);
@@ -44,11 +50,17 @@ namespace solver{
 
 
     ComplexVariable operator*(int n, ComplexVariable x);
+    ComplexVariable operator/(ComplexVariable x, int n);
     ComplexVariable operator-(ComplexVariable n);
-    ComplexVariable operator-(int n, ComplexVariable x);
+    ComplexVariable operator-(ComplexVariable x, int n);
+    ComplexVariable operator-(ComplexVariable n, ComplexVariable m);
     ComplexVariable operator^(ComplexVariable n, int pow);
     ComplexVariable operator==(ComplexVariable n, ComplexVariable m);
+    ComplexVariable operator==(ComplexVariable n, int m);
     ComplexVariable operator+(ComplexVariable n, ComplexVariable m);
+    ComplexVariable operator+(ComplexVariable n, int m);
+    ComplexVariable operator+(int n, ComplexVariable x);
+    ComplexVariable operator+(ComplexVariable n, std::complex<double>);
 
     double solve(double x);
     std::complex<double> solve(ComplexVariable y);
