@@ -8,8 +8,13 @@ namespace solver{
 
     class RealVariable{
         private:
-            double x;
+            double _val;
         public:
+        	double val() const {
+		return _val;
+	}
+
+
             friend double operator*(double n, RealVariable x);
             friend double operator/(double n, RealVariable x);
             friend double operator-(RealVariable n);
@@ -23,9 +28,16 @@ namespace solver{
 
     class ComplexVariable{
         private:
-            double re;
-            double im;
+            double _re;
+            double _im;
         public: 
+        	double re() const {
+		return _re;
+	}
+
+	double im() const {
+		return _im;
+	}
            friend ComplexVariable operator*(int n, ComplexVariable x);
            friend ComplexVariable operator/(ComplexVariable x, int n);
             friend ComplexVariable operator-(ComplexVariable n);
