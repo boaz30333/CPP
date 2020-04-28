@@ -39,6 +39,22 @@ namespace solver{
          return 0;
     }
 
+    double operator+(RealVariable n, int m){
+         return 0;
+    }
+
+    double operator+(int n, RealVariable m){
+         return 0;
+    }
+
+    double operator+(RealVariable n, double m){
+         return 0;
+    }
+
+    double operator+(double n, RealVariable m){
+         return 0;
+    }
+
 
 
     ComplexVariable operator*(int n, ComplexVariable x){

@@ -10,9 +10,11 @@ namespace solver{
         private:
             double _val;
         public:
+            // RealVariable(double x):
+            //     _val(x){}
         	double val() const {
-		return _val;
-	}
+		        return _val;
+	        }
 
 
             friend double operator*(double n, RealVariable x);
@@ -23,6 +25,10 @@ namespace solver{
             friend double operator==(RealVariable n, RealVariable m);
             double operator()();
             friend double operator+(RealVariable n, RealVariable m);
+            friend double operator+(RealVariable n, int m);
+            friend double operator+(int n, RealVariable m);
+            friend double operator+(RealVariable n, double m);
+            friend double operator+(double n, RealVariable m);
 
     };
 
@@ -59,6 +65,10 @@ namespace solver{
     double operator^(RealVariable n, int pow);
     double operator==(RealVariable n, RealVariable m);
     double operator+(RealVariable n, RealVariable m);
+    double operator+(RealVariable n, int m);
+    double operator+(int n, RealVariable m);
+    double operator+(RealVariable n, double m);
+    double operator+(double n, RealVariable m);
 
 
     ComplexVariable operator*(int n, ComplexVariable x);
