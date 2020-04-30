@@ -3,7 +3,6 @@
 #include <string>
 #include "solver.hpp"
 
-// #define NULL __null
 
 namespace solver{
     using namespace std;
@@ -11,8 +10,16 @@ namespace solver{
         return 0;
     }
 
+    double operator*(RealVariable n, double m){
+         return 0;
+    }
+
     double operator/(double n, RealVariable x){
         return 0;
+    }
+
+    double operator/(RealVariable n, double m){
+         return 0;
     }
 
     double operator-(RealVariable n){
@@ -23,11 +30,23 @@ namespace solver{
         return 0;
     }
 
-    double operator^(RealVariable n, int pow){
+    double operator-(RealVariable n, double m){
+         return 0;
+    }
+
+    double operator^(RealVariable n, double pow){
          return 0;
     }
 
     double operator==(RealVariable n, RealVariable m){
+         return 0;
+    }
+
+    double operator==(double n, RealVariable x){
+        return 0;
+    }
+
+    double operator==(RealVariable n, double m){
          return 0;
     }
 
@@ -36,14 +55,6 @@ namespace solver{
     }
 
     double operator+(RealVariable n, RealVariable m){
-         return 0;
-    }
-
-    double operator+(RealVariable n, int m){
-         return 0;
-    }
-
-    double operator+(int n, RealVariable m){
          return 0;
     }
 
@@ -57,11 +68,19 @@ namespace solver{
 
 
 
-    ComplexVariable operator*(int n, ComplexVariable x){
+    ComplexVariable operator*(double n, ComplexVariable x){
         return x;
     }
 
-    ComplexVariable operator/(ComplexVariable x, int n){
+    ComplexVariable operator*(ComplexVariable n, double x){
+        return n;
+    }
+
+    ComplexVariable operator/(double x, ComplexVariable n){
+        return n;
+    }
+
+    ComplexVariable operator/(ComplexVariable x, double n){
         return x;
     }
 
@@ -69,15 +88,27 @@ namespace solver{
         return n;
     }
 
-    ComplexVariable operator-(ComplexVariable x, int n){
+    ComplexVariable operator-(ComplexVariable x, double n){
         return x;
+    }
+
+    ComplexVariable operator-(double x, ComplexVariable n){
+        return n;
     }
 
       ComplexVariable operator-(ComplexVariable n, ComplexVariable m){
         return n;
     }
 
-    ComplexVariable operator^(ComplexVariable n, int pow){
+      ComplexVariable operator-(ComplexVariable n, std::complex<double> m){
+        return n;
+    }
+
+      ComplexVariable operator-(std::complex<double> n, ComplexVariable m){
+        return m;
+    }
+
+    ComplexVariable operator^(ComplexVariable n, double pow){
         return n;
     }
 
@@ -85,24 +116,45 @@ namespace solver{
         return n;
     }
 
-    ComplexVariable operator==(ComplexVariable n, int m){
+    ComplexVariable operator==(ComplexVariable n, std::complex<double> m){
         return n;
+    }
+
+    ComplexVariable operator==(std::complex<double> n, ComplexVariable m){
+        return m;
+    }
+
+    ComplexVariable operator==(ComplexVariable n, double m){
+        return n;
+    }
+
+    ComplexVariable operator==(double x, ComplexVariable n){
+        return n;
+    }
+
+    ComplexVariable operator==(std::complex<double> n, double m){
+        ComplexVariable x;
+        return x;
     }
 
     ComplexVariable operator+(ComplexVariable n, ComplexVariable m){
         return n;
     }
 
-    ComplexVariable operator+(ComplexVariable n, int m){
+    ComplexVariable operator+(ComplexVariable n, double m){
         return n;
     }
 
-    ComplexVariable operator+(int n, ComplexVariable x){
+    ComplexVariable operator+(double n, ComplexVariable x){
         return x;
     }
 
     ComplexVariable operator+(ComplexVariable n, std::complex<double> m){
         return n;
+    }
+
+    ComplexVariable operator+(std::complex<double> n, ComplexVariable m){
+        return m;
     }
 
     ComplexVariable ComplexVariable::operator()(ComplexVariable n){
