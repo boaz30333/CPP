@@ -6,15 +6,6 @@ using namespace solver;
 using namespace std;
 
 
-TEST_CASE("real op+ ")
-{
-  RealVariable x;
-  CHECK(x+5 == 7);
-  CHECK(x+x == 4);
-  CHECK(x+2+4 == 6);
-  CHECK(x+x+x+x == 8);
-  CHECK(12.5+x+3 == 17.5);
-}
 
 TEST_CASE("solve linear")
 {
@@ -94,3 +85,61 @@ TEST_CASE("solve - throw aritmetic problem")
     CHECK_THROWS(solve((y^2)+70==-6.66666i));
 }
 
+TEST_CASE("real op+ ")
+{
+  RealVariable x;
+  CHECK(x+5 == 7);
+  CHECK(x+x == 4);
+  CHECK(x+2+4 == 6);
+  CHECK(x+x+x+x == 8);
+  CHECK(12.5+x+3 == 17.5);
+}
+TEST_CASE("real op- ")
+{
+  RealVariable x;
+  CHECK(x-5 == 7);
+  CHECK(x-1 == 1);
+  CHECK(x-2-4 == 6);
+  CHECK((x^2)-4 == 2);
+  CHECK(12.5-x-3 == 17.5);
+    CHECK(10-x == 10);
+}
+
+
+TEST_CASE("solve explict furmula")
+{
+  RealVariable x;
+    CHECK(solve(x+5 ==0) ==-5.);
+  CHECK(solve(x-5==0)== 5.);
+  CHECK(solve((x^2)-4==0)== 2.);
+  CHECK(solve((x^2)-x==0) == 1.);
+      CHECK(solve(x+x==0) == 0.);
+  CHECK(solve(x+x*x -2*x ==0)== 1.);
+  CHECK(solve((x^2)-5==0) ==sqrt(5));
+        CHECK(solve(((x^2)+(x^2))/2 ==8)==2);
+  CHECK(solve(x==0)== 0);
+  CHECK(solve((2*x-2==0))== 2);
+  CHECK(solve(2*x-2==0) ==1 );
+
+    ComplexVariable y;
+      CHECK(solve(y+5 ==0) ==-5.+0i);
+          CHECK(solve(y+5 ==0) ==-5.);
+  CHECK(solve(y-5==0)== 5.);
+  CHECK(((solve((y^2)-4==0)== 2.)||(solve((y^2)-4==0)==-2.)));
+  CHECK(solve((y^2)-y==0) == -1.);
+      CHECK(solve(y+y==0) == 0.);
+  CHECK(solve(y+y*y -2*y ==0)== 1.);
+  CHECK(solve((y^2)-5==0) ==sqrt(5.));
+        CHECK(solve(((y^2)+(y^2))/2 ==8.)==2.);
+  CHECK(solve(y==0)== 0.);
+  CHECK(solve((2*y-2==0.))== 2.);
+  CHECK(solve(2*y-2==0.) ==1. );
+
+  CHECK(solve((y^2)-25.==0.+0i)==5.);
+  CHECK(solve(10*y-10i==0.) == 0.+1i);
+        CHECK(solve((y^2)+1.==0.)==0.+1i);
+  CHECK(solve(y-(5.-2i)*(5.+2i)==0.)== 29.);
+  CHECK(solve(y-(5.-2i)*(5.-2i)==0.)== 21.-20i);
+  CHECK(solve((y^2)-1i*1i==0.) ==0.+1i);
+
+}

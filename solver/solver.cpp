@@ -13,6 +13,9 @@ namespace solver{
     double operator*(RealVariable n, double m){
          return 0;
     }
+        double operator*(RealVariable n,RealVariable s){
+         return 0;
+    }
 
     double operator/(double n, RealVariable x){
         return 0;
@@ -73,6 +76,9 @@ namespace solver{
     }
 
     ComplexVariable operator*(ComplexVariable n, double x){
+        return n;
+    }
+        ComplexVariable operator*(ComplexVariable n, ComplexVariable s){
         return n;
     }
 

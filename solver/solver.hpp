@@ -8,17 +8,26 @@ namespace solver{
 
     class RealVariable{
         private:
-            double _val;
+            double _x;
+            double _y;
+            double _z;
         public:
             // RealVariable(double x):
             //     _val(x){}
-        	double val() const {
-		        return _val;
+        	double x() const {
+		        return _x;
+	        }
+                    	double y() const {
+		        return _y;
+	        }
+                    	double z() const {
+		        return _z;
 	        }
 
 
             friend double operator*(double n, RealVariable x);
             friend double operator*(RealVariable n, double m);
+            friend double operator*(RealVariable n, RealVariable s);
             friend double operator/(double n, RealVariable x);
             friend double operator/(RealVariable n, double m);
             friend double operator-(RealVariable n);
@@ -36,19 +45,25 @@ namespace solver{
     };
 
     class ComplexVariable{
-        private:
-            double _re;
-            double _im;
-        public: 
-        	double re() const {
-		return _re;
-	}
-
-	double im() const {
-		return _im;
-	}
+      private:
+            double _x;
+            double _y;
+            double _z;
+        public:
+            // RealVariable(double x):
+            //     _val(x){}
+        	double x() const {
+		        return _x;
+	        }
+                    	double y() const {
+		        return _y;
+	        }
+                    	double z() const {
+		        return _z;
+	        }
            friend ComplexVariable operator*(double n, ComplexVariable x);
            friend ComplexVariable operator*(ComplexVariable x, double n);
+           friend ComplexVariable operator*(ComplexVariable x, ComplexVariable y);
            friend ComplexVariable operator/(ComplexVariable x, double n);
            friend ComplexVariable operator/(double n, ComplexVariable x);
             friend ComplexVariable operator-(ComplexVariable n);
