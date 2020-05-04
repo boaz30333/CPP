@@ -129,12 +129,13 @@ public:
     _c=other._c;
     return *this;
 }
+
     friend const ComplexVariable operator*(const ComplexVariable &x, const ComplexVariable &y);
     friend const ComplexVariable operator^(const ComplexVariable &n, int pow);
     friend const ComplexVariable operator/(const ComplexVariable &x, double n);
 
     friend const ComplexVariable operator-(const ComplexVariable &x, const ComplexVariable &y);
-
+    
     friend const ComplexVariable operator==(const ComplexVariable &n, const ComplexVariable &m);
 
     friend const ComplexVariable operator+(const ComplexVariable &n, const ComplexVariable &m);
