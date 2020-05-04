@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <complex>
-#include <math.h>
 
 namespace solver
 {
@@ -14,20 +13,14 @@ private:
 
 public:
 
-    double a() const{
+    const double a() const{
         return _a;
     }
-       double b() const{
+     const    double b() const{
         return _b;
     }
       const   double c() const{
         return _c;
-    }
-        RealVariable(double c)
-    {
-        _a=0;
-        _b=0;
-        _c=c;
     }
     RealVariable()
     {
@@ -41,7 +34,12 @@ public:
         _b = b;
         _c = c;
     }
-
+        RealVariable(double c)
+    {
+        _a=0;
+        _b=0;
+        _c = c;
+    }
         RealVariable(const RealVariable & other)
     {
         _a=other._a;
@@ -61,21 +59,14 @@ const RealVariable& operator= (const RealVariable &other)
     return *this;
 }
     friend const RealVariable operator*(const RealVariable &x, const RealVariable &y);
-    friend const RealVariable operator*(double x, const RealVariable &y);
-    friend const RealVariable operator*(const RealVariable &y, double x);
 
     friend const RealVariable operator/(const RealVariable &x, double n);
 
-   friend const RealVariable operator-(const RealVariable &x, const RealVariable &y);
-        friend const RealVariable operator-(double x, const RealVariable &y);
-    friend const RealVariable operator-(const RealVariable &y, double x);
+    friend const RealVariable operator-(const RealVariable &x, const RealVariable &y);
     friend const RealVariable operator^(const RealVariable &n, int pow);
     friend const RealVariable operator==(const RealVariable &n, const RealVariable &m);
-    friend const RealVariable operator==(double x, const RealVariable &y);
-    friend const RealVariable operator==(const RealVariable &y, double x);
+
     friend const RealVariable operator+(const RealVariable &n, const RealVariable &m);
-        friend const RealVariable operator+(double x, const RealVariable &y);
-    friend const RealVariable operator+(const RealVariable &y, double x);
 };
 
 class ComplexVariable
@@ -120,12 +111,12 @@ public:
         _b=0;
         _c=c;
     }
-    // ComplexVariable(double c)
-    // {
-    //     _a=0;
-    //     _b=0;
-    //     _c=c;
-    // }
+    ComplexVariable(double c)
+    {
+        _a=0;
+        _b=0;
+        _c=c;
+    }
  ComplexVariable& operator= (const ComplexVariable &other)
 {
     // self-assignment guard
@@ -139,21 +130,14 @@ public:
     return *this;
 }
     friend const ComplexVariable operator*(const ComplexVariable &x, const ComplexVariable &y);
-    friend const ComplexVariable operator*(double x, const ComplexVariable &y);
-    friend const ComplexVariable operator*(const ComplexVariable &y ,double x);
-
     friend const ComplexVariable operator^(const ComplexVariable &n, int pow);
     friend const ComplexVariable operator/(const ComplexVariable &x, double n);
 
     friend const ComplexVariable operator-(const ComplexVariable &x, const ComplexVariable &y);
-    friend const ComplexVariable operator-(double x, const ComplexVariable &y);
-    friend const ComplexVariable operator-(const ComplexVariable &y ,double x);
+
     friend const ComplexVariable operator==(const ComplexVariable &n, const ComplexVariable &m);
-    friend const ComplexVariable operator==(double x, const ComplexVariable &y);
-    friend const ComplexVariable operator==(const ComplexVariable &y ,double x);
+
     friend const ComplexVariable operator+(const ComplexVariable &n, const ComplexVariable &m);
-        friend const ComplexVariable operator+(double x, const ComplexVariable &y);
-    friend const ComplexVariable operator+(const ComplexVariable &y ,double x);
 };
 
 double solve(const RealVariable &x);
