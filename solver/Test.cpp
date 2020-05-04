@@ -83,6 +83,7 @@ TEST_CASE("solve - throw aritmetic problem")
     CHECK_THROWS(solve((y^2)-500==52i));
     CHECK_THROWS(solve((y^2)-3==4.3i));
     CHECK_THROWS(solve((y^2)+70==-6.66666i));
+<<<<<<< HEAD
 }
 
 
@@ -90,6 +91,34 @@ TEST_CASE("solve - throw aritmetic problem")
 TEST_CASE("solve explict furmula")
 {
   RealVariable x;
+=======
+}
+
+TEST_CASE("real op+ ")
+{
+  RealVariable x;
+  CHECK(x+5 == 7);
+  CHECK(x+x == 4);
+  CHECK(x+2+4 == 6);
+  CHECK(x+x+x+x == 8);
+  CHECK(12.5+x+3 == 17.5);
+}
+TEST_CASE("real op- ")
+{
+  RealVariable x;
+  CHECK(x-5 == 7);
+  CHECK(x-1 == 1);
+  CHECK(x-2-4 == 6);
+  CHECK((x^2)-4 == 2);
+  CHECK(12.5-x-3 == 17.5);
+    CHECK(10-x == 10);
+}
+
+
+TEST_CASE("solve explict furmula")
+{
+  RealVariable x;
+>>>>>>> f866822b4f369fc5b18f17586f151adcf534e6dc
     CHECK(solve(x+5 ==0) ==-5.);
   CHECK(solve(x-5==0)== 5.);
   CHECK(solve((x^2)-4==0)== 2.);
