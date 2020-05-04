@@ -1,89 +1,161 @@
 #pragma once
 #include <iostream>
 #include <complex>
+#include <math.h>
 
+namespace solver
+{
+using namespace std;
 
-namespace solver{
-    using namespace std;
+class RealVariable
+{
+private:
+    double _a, _b, _c;
 
-    class RealVariable{
-        private:
-            double _val;
-        public:
-            // RealVariable(double x):
-            //     _val(x){}
-        	double val() const {
-		        return _val;
-	        }
+public:
 
+    double a() const{
+        return _a;
+    }
+       double b() const{
+        return _b;
+    }
+      const   double c() const{
+        return _c;
+    }
+        RealVariable(double c)
+    {
+        _a=0;
+        _b=0;
+        _c=c;
+    }
+    RealVariable()
+    {
+        _a=0;
+        _b=1;
+        _c = 0;
+    }
+        RealVariable(double a, double b, double c)
+    {
+        _a = a;
+        _b = b;
+        _c = c;
+    }
 
-            friend double operator*(double n, RealVariable x);
-            friend double operator/(double n, RealVariable x);
-            friend double operator-(RealVariable n);
-            friend double operator-(double n, RealVariable x);
-            friend double operator^(RealVariable n, int pow);
-            friend double operator==(RealVariable n, RealVariable m);
-            double operator()();
-            friend double operator+(RealVariable n, RealVariable m);
-            friend double operator+(RealVariable n, int m);
-            friend double operator+(int n, RealVariable m);
-            friend double operator+(RealVariable n, double m);
-            friend double operator+(double n, RealVariable m);
-
-    };
-
-    class ComplexVariable{
-        private:
-            double _re;
-            double _im;
-        public: 
-        	double re() const {
-		return _re;
-	}
-
-	double im() const {
-		return _im;
-	}
-           friend ComplexVariable operator*(int n, ComplexVariable x);
-           friend ComplexVariable operator/(ComplexVariable x, int n);
-            friend ComplexVariable operator-(ComplexVariable n);
-            friend ComplexVariable operator-(ComplexVariable x, int n);
-            friend ComplexVariable operator-(ComplexVariable n, ComplexVariable m);
-            friend ComplexVariable operator^(ComplexVariable n, int pow);
-            friend ComplexVariable operator==(ComplexVariable n, ComplexVariable m);
-            friend ComplexVariable operator==(ComplexVariable n, int m);
-            ComplexVariable operator()(ComplexVariable n);
-            friend ComplexVariable operator+(ComplexVariable n, ComplexVariable m);
-            friend ComplexVariable operator+(ComplexVariable n, int m);
-            friend ComplexVariable operator+(int n, ComplexVariable x);
-            friend ComplexVariable operator+(ComplexVariable n, std::complex<double>);
-    };
-
-    double operator*(double n, RealVariable x);
-    double operator-(RealVariable n);
-    double operator-(double n, RealVariable x);
-    double operator^(RealVariable n, int pow);
-    double operator==(RealVariable n, RealVariable m);
-    double operator+(RealVariable n, RealVariable m);
-    double operator+(RealVariable n, int m);
-    double operator+(int n, RealVariable m);
-    double operator+(RealVariable n, double m);
-    double operator+(double n, RealVariable m);
-
-
-    ComplexVariable operator*(int n, ComplexVariable x);
-    ComplexVariable operator/(ComplexVariable x, int n);
-    ComplexVariable operator-(ComplexVariable n);
-    ComplexVariable operator-(ComplexVariable x, int n);
-    ComplexVariable operator-(ComplexVariable n, ComplexVariable m);
-    ComplexVariable operator^(ComplexVariable n, int pow);
-    ComplexVariable operator==(ComplexVariable n, ComplexVariable m);
-    ComplexVariable operator==(ComplexVariable n, int m);
-    ComplexVariable operator+(ComplexVariable n, ComplexVariable m);
-    ComplexVariable operator+(ComplexVariable n, int m);
-    ComplexVariable operator+(int n, ComplexVariable x);
-    ComplexVariable operator+(ComplexVariable n, std::complex<double>);
-
-    double solve(double x);
-    std::complex<double> solve(ComplexVariable y);
+        RealVariable(const RealVariable & other)
+    {
+        _a=other._a;
+        _b=other._b;
+        _c =other._c;
+    }
+const RealVariable& operator= (const RealVariable &other)
+{
+    // self-assignment guard
+    if (this == &other)
+        return *this;
+ 
+    // do the copy
+    _a = other._a; 
+    _b = other._b; 
+    _c=other._c;
+    return *this;
 }
+    friend const RealVariable operator*(const RealVariable &x, const RealVariable &y);
+    friend const RealVariable operator*(double x, const RealVariable &y);
+    friend const RealVariable operator*(const RealVariable &y, double x);
+
+    friend const RealVariable operator/(const RealVariable &x, double n);
+
+   friend const RealVariable operator-(const RealVariable &x, const RealVariable &y);
+        friend const RealVariable operator-(double x, const RealVariable &y);
+    friend const RealVariable operator-(const RealVariable &y, double x);
+    friend const RealVariable operator^(const RealVariable &n, int pow);
+    friend const RealVariable operator==(const RealVariable &n, const RealVariable &m);
+    friend const RealVariable operator==(double x, const RealVariable &y);
+    friend const RealVariable operator==(const RealVariable &y, double x);
+    friend const RealVariable operator+(const RealVariable &n, const RealVariable &m);
+        friend const RealVariable operator+(double x, const RealVariable &y);
+    friend const RealVariable operator+(const RealVariable &y, double x);
+};
+
+class ComplexVariable
+{
+private:
+    std::complex<double> _a;
+    std::complex<double> _b;
+    std::complex<double> _c;
+
+
+public:
+  const  std::complex<double> a() const{
+        return _a;
+    }
+     const   std::complex<double> b() const{
+        return _b;
+    }
+      const  std::complex<double> c() const{
+        return _c;
+    }
+    ComplexVariable()
+    {
+        _a=0;
+        _b=1;
+        _c=0;
+    }
+        ComplexVariable(const ComplexVariable & other)
+    {
+        _a=other._a;
+        _b=other._b;
+        _c =other._c;
+    }
+        ComplexVariable(const std::complex<double> a, const std::complex<double> b, const std::complex<double> c)
+    {
+        _a = a;
+        _b = b;
+        _c = c;
+    }
+    ComplexVariable(const std::complex<double> c )
+    {
+        _a=0;
+        _b=0;
+        _c=c;
+    }
+    // ComplexVariable(double c)
+    // {
+    //     _a=0;
+    //     _b=0;
+    //     _c=c;
+    // }
+ ComplexVariable& operator= (const ComplexVariable &other)
+{
+    // self-assignment guard
+    if (this == &other)
+        return *this;
+ 
+    // do the copy
+    _a = other._a; 
+    _b = other._b; 
+    _c=other._c;
+    return *this;
+}
+    friend const ComplexVariable operator*(const ComplexVariable &x, const ComplexVariable &y);
+    friend const ComplexVariable operator*(double x, const ComplexVariable &y);
+    friend const ComplexVariable operator*(const ComplexVariable &y ,double x);
+
+    friend const ComplexVariable operator^(const ComplexVariable &n, int pow);
+    friend const ComplexVariable operator/(const ComplexVariable &x, double n);
+
+    friend const ComplexVariable operator-(const ComplexVariable &x, const ComplexVariable &y);
+    friend const ComplexVariable operator-(double x, const ComplexVariable &y);
+    friend const ComplexVariable operator-(const ComplexVariable &y ,double x);
+    friend const ComplexVariable operator==(const ComplexVariable &n, const ComplexVariable &m);
+    friend const ComplexVariable operator==(double x, const ComplexVariable &y);
+    friend const ComplexVariable operator==(const ComplexVariable &y ,double x);
+    friend const ComplexVariable operator+(const ComplexVariable &n, const ComplexVariable &m);
+        friend const ComplexVariable operator+(double x, const ComplexVariable &y);
+    friend const ComplexVariable operator+(const ComplexVariable &y ,double x);
+};
+
+double solve(const RealVariable &x);
+std::complex<double> solve(const ComplexVariable &y);
+} // namespace solver
