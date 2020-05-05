@@ -59,13 +59,10 @@ const RealVariable& operator= (const RealVariable &other)
     return *this;
 }
     friend const RealVariable operator*(const RealVariable &x, const RealVariable &y);
-
     friend const RealVariable operator/(const RealVariable &x, double n);
-
     friend const RealVariable operator-(const RealVariable &x, const RealVariable &y);
     friend const RealVariable operator^(const RealVariable &n, int pow);
     friend const RealVariable operator==(const RealVariable &n, const RealVariable &m);
-
     friend const RealVariable operator+(const RealVariable &n, const RealVariable &m);
 };
 
