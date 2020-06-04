@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <complex>
+#include <complex.h>
 
 namespace solver
 {

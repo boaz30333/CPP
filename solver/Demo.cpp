@@ -15,6 +15,7 @@ using solver::solve, solver::RealVariable, solver::ComplexVariable;
 
 int main() {
     RealVariable x;
+
     cout << solve(2*x-4 == 10) << endl;  // 7
     cout << solve((x^2) == 16) << endl;   // 4 or -4
     try {   
@@ -26,6 +27,8 @@ int main() {
     double xvalue = solve(2*x-4.0 == 10.0);   // xvalue == 7
 
     ComplexVariable y;
+    ComplexVariable z=y+2i;
+    cout << solve(z == 0) << endl; 
     std::complex<double> yvalue = solve(2*y-4 == 10);
     cout << yvalue << endl;  // 7+0i  (can be in any other format)
     cout << solve((y^2) == 16) << endl;   // 4+0i or -4+0i
