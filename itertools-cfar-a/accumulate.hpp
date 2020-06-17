@@ -1,39 +1,52 @@
-#pragma once
+ #pragma once
 
-using namespace std;
 
-namespace itertools{
-    class range{
-        int begins;
-        int ends;
 
+ namespace itertools{
+	  using namespace std;
+        typedef struct {
+                template <typename K>
+                K operator ()(K a, K b) const {
+                        return a+b;
+                }
+        } add;
+	template<typename T,typename F = add> 
+    class accumulate{
+	T container;
+	F func;
     public:
-        range(int begin, int end):begins(begin), ends(end){}
-
-        class iterator {
-
-	    private:
-		    int current;
-
-	    public:
-
-		    iterator(int num = 0)
-			: current(num) {
-		    }
-
-		int operator*() {
-			//return *pointer_to_current_node;
-            return current;
+        accumulate(T m ,F function = add()):container(m),func(function){
 		}
 
-		int* operator->() {
-			return &current;
+        class iterator {
+	    private:
+		typename T::iterator container_iter;
+		typename T::iterator container_end;
+
+		decltype(*(container_iter))  data ;
+			 F func;
+	    public:
+		    iterator(typename T::iterator begins,typename T::iterator ends,F function)
+			: container_iter(begins),container_end(ends),func(function),data(*begins){
+		    }
+iterator(const iterator& other):container_iter(other.container_iter),container_end(other.container_end),func(other.func),data(*(other.container_iter)){
+		    }
+
+		auto operator*() {
+            return data;
+		}
+
+		auto* operator->() {
+			return data;
 		}
 
 		// ++i;
 		iterator& operator++() {
 			//++pointer_to_current_node;
-			current++;
+			container_iter++;
+			// iter= *container_iter;
+			if(container_iter!=container_end)
+			data= func(data,*container_iter);
 			return *this;
 		}
 
@@ -41,25 +54,27 @@ namespace itertools{
 		// Usually iterators are passed by value and not by const& as they are small.
 		const iterator operator++(int) {
 			iterator tmp= *this;
-			current++;
+			container_iter++;
+			if(container_iter!=container_end)
+			data= func(data,*container_iter);
 			return tmp;
 		}
 
 		bool operator==(const iterator& rhs) const {
-			return current == rhs.current;
+			return container_iter == rhs.container_iter;
 		}
 
 		bool operator!=(const iterator& rhs) const {
-			return current != rhs.current;
+			return !(container_iter == rhs.container_iter);
 		}
 	};  // END OF CLASS ITERATOR
 
 	iterator begin() {
-		return iterator(begins);
+		return iterator(container.begin(),container.end(),func);
 	}
 	
 	iterator end() {
-		return iterator(ends);
+return iterator(container.end(),container.end(),func);
 	}
     };
 
@@ -97,8 +112,8 @@ namespace itertools{
 
 // 	public:
 
-// 		iterator(T m)
-// 			: itr(m.begin()), value(*itr) {
+// 		iterator( T:iterator m)
+// 			: itr(m), value(*itr) {
 //                 // value=*itr;
 // 		}
 
@@ -152,11 +167,11 @@ namespace itertools{
 // public:
 
 // 	iterator begin() {
-// 		return iterator(container);
+// 		return iterator(container.end());
 // 	}
 	
 // 	iterator end() {
-// 		return iterator{container};
+// 		return iterator{container.begin()};
 // 	}
 //     };
 }
