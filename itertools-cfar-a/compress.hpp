@@ -62,4 +62,5 @@ namespace itertools{
 		return iterator{ends};
 	}
     };
+
 }

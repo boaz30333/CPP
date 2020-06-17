@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "range.hpp"
-// #include "accumulate.hpp"
+#include "accumulate.hpp"
 // #include "filterfalse.hpp"
 // #include "compress.hpp"
 
@@ -28,32 +28,32 @@ int main(int argc, const char * argv[]) {
 	for (int i: range(5,9))
 		cout << i << " ";      // 5 6 7 8
 
-    vector<int> vecInt = {1,2,3,4};
-    vector<string> vecString = {"Hello", "Bye", "Adam"};
-    vector<float> vecFloat = {-1, 0.3, 5.2, -8.3};
+    // vector<int> vecInt = {1,2,3,4};
+    // vector<string> vecString = {"Hello", "Bye", "Adam"};
+    // vector<float> vecFloat = {-1, 0.3, 5.2, -8.3};
     
-    cout << "####  accumulate:  ####";
-    cout << endl << "accumulate of range: " << endl;
-	for (int i: accumulate(range(5,9)))
-	 	cout << i << " ";      // 5 11 18 26
+    // cout << "####  accumulate:  ####";
+    // cout << endl << "accumulate of range: " << endl;
+	// for (int i: accumulate(range(5,9)))
+	//  	cout << i << " ";      // 5 11 18 26
 
-    cout << endl << "accumulate of vector<string>: " << endl;
-    for (auto i: accumulate(vecString) )
-        cout << i << " ";  // Hello HelloBye HelloByeAdam
-    cout << endl << endl;
+    // cout << endl << "accumulate of vector<string>: " << endl;
+    // for (auto i: accumulate(vecString) )
+    //     cout << i << " ";  // Hello HelloBye HelloByeAdam
+    // cout << endl << endl;
 
     // cout << endl << "accumulate of range with binary operator: " << endl;
 	// for (int i: accumulate(range(5,9), [](int x, int y){return x*y;}))
 	// 	cout << i << " ";      // 5 30 210 1680
 
-    // cout << "####  Filter False:  ####";
-    // cout << endl << "Filter out all numbers less than 3 in vector{1,2,3,4}: " << endl;
-    // for (auto i: filterfalse(lessThan3{}, vecInt) )
-    //     cout << i << " ";   // 3 4
-    // cout << endl << "Filter out all even numbers in range(5,9): " << endl;
-    // for (auto i: filterfalse([](int i){return i%2==0;}, range(5,9)) )
-    //     cout << i << " ";   // 5 7
-    // cout << endl << endl;
+    cout << "####  Filter False:  ####";
+    cout << endl << "Filter out all numbers less than 3 in vector{1,2,3,4}: " << endl;
+    for (auto i: filterfalse(lessThan3{}, vecInt) )
+        cout << i << " ";   // 3 4
+    cout << endl << "Filter out all even numbers in range(5,9): " << endl;
+    for (auto i: filterfalse([](int i){return i%2==0;}, range(5,9)) )
+        cout << i << " ";   // 5 7
+    cout << endl << endl;
 
     // cout << "####  compress:  ####";
     // cout << endl << "compress a string" << endl;
@@ -65,6 +65,6 @@ int main(int argc, const char * argv[]) {
     // cout << endl << endl;
 
 
-    // cout << endl;
+    cout << endl;
     return 0;
 }
