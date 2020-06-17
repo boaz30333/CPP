@@ -21,7 +21,7 @@ namespace itertools{
 			: current(num) {
 		    }
 
-		int& operator*() {
+		int operator*() {
 			//return *pointer_to_current_node;
             return current;
 		}
@@ -55,11 +55,11 @@ namespace itertools{
 	};  // END OF CLASS ITERATOR
 
 	iterator begin() {
-		return iterator{begins};
+		return iterator(begins);
 	}
 	
 	iterator end() {
-		return iterator{ends};
+		return iterator(ends);
 	}
     };
 }

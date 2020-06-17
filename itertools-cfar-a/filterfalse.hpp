@@ -1,39 +1,61 @@
-#pragma once
+ #pragma once
 
-using namespace std;
 
-namespace itertools{
-    class range{
-        int begins;
-        int ends;
 
+ namespace itertools{
+	  using namespace std;
+        // typedef struct {
+        //         template <typename K>
+        //         bool operator ()(K b) const {
+        //                 return a+b;
+        //         }
+        // } add;
+	template<typename F ,typename T> 
+    class filterfalse{
+	T container;
+	F func;
     public:
-        range(int begin, int end):begins(begin), ends(end){}
-
-        class iterator {
-
-	    private:
-		    int current;
-
-	    public:
-
-		    iterator(int num = 0)
-			: current(num) {
-		    }
-
-		int& operator*() {
-			//return *pointer_to_current_node;
-            return current;
+        filterfalse(F function,T m):container(m),func(function){
 		}
 
-		int* operator->() {
-			return &current;
+        class iterator {
+	    private:
+		typename T::iterator container_iter;
+		typename T::iterator container_end;
+
+		decltype(*(container_iter))  data ;
+			 F func;
+	    public:
+		    iterator(typename T::iterator begins,typename T::iterator ends,F function)
+			: container_iter(begins),container_end(ends),func(function),data(*begins){
+		    }
+iterator(const iterator& other):container_iter(other.container_iter),container_end(other.container_end),func(other.func),data(*(other.container_iter)){
+		    }
+
+		auto operator*() {
+            while(func(*container_iter)&&container_iter!=container_end)
+            container_iter++;
+             if(container_iter==container_end)
+             return;
+            //   throw string("dfgdfgd");
+            return *container_iter;
+		}
+
+		auto* operator->() {
+            while(func(*container_iter)&&container_iter!=container_end)
+            container_iter++;
+             if(container_iter==container_end) 
+             return;
+            //   throw string("dfgdfgd");
+			return *container_iter;
 		}
 
 		// ++i;
 		iterator& operator++() {
 			//++pointer_to_current_node;
-			current++;
+			container_iter++;
+            while(func(*container_iter)&&container_iter!=container_end)
+            container_iter++;
 			return *this;
 		}
 
@@ -41,25 +63,27 @@ namespace itertools{
 		// Usually iterators are passed by value and not by const& as they are small.
 		const iterator operator++(int) {
 			iterator tmp= *this;
-			current++;
+			container_iter++;
+            while(func(*container_iter)&&container_iter!=container_end)
+            container_iter++;
 			return tmp;
 		}
 
 		bool operator==(const iterator& rhs) const {
-			return current == rhs.current;
+			return container_iter == rhs.container_iter;
 		}
 
 		bool operator!=(const iterator& rhs) const {
-			return current != rhs.current;
+			return !(container_iter == rhs.container_iter);
 		}
 	};  // END OF CLASS ITERATOR
 
 	iterator begin() {
-		return iterator{begins};
+		return iterator(container.begin(),container.end(),func);
 	}
 	
 	iterator end() {
-		return iterator{ends};
+return iterator(container.end(),container.end(),func);
 	}
     };
 
