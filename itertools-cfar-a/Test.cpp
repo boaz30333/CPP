@@ -159,7 +159,7 @@ TEST_CASE("Test Compress")
     CHECK(j != 6);
     CHECK(j != 5);
     CHECK(j != 4);
-    CHECK(j != 2);
+    CHECK(j != 23);
     CHECK(j != 1);
     CHECK(j != -1);
     CHECK(j != 0);

@@ -1,6 +1,7 @@
  #pragma once
 
 
+#include <stdexcept>
 
  namespace itertools{
 	  using namespace std;
@@ -45,7 +46,7 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
                 bool_iter++;
             }
         if((container_iter!=container_end&&bool_iter==bool_end)||(container_iter==container_end&&bool_iter!=bool_end))
-            throw string("error- containers no same size");
+          throw std::runtime_error("error- containers no same size");
 			return *this;
 		}
 
@@ -60,7 +61,7 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
                 bool_iter++;
             }
         if((container_iter!=container_end&&bool_iter==bool_end)||(container_iter==container_end&&bool_iter!=bool_end))
-            throw string("error- containers no same size");
+          throw std::runtime_error("error- containers no same size");
 			return tmp;
 		}
 
@@ -82,7 +83,7 @@ typename T::iterator bb= bool_c.begin();
                 bb++;
             }
         if((cb!=cont.end()&&bb==bool_c.end())||(cb==cont.end()&&bb!=bool_c.end()))
-            throw string("error- containers no same size");
+          throw std::runtime_error("error- containers no same size");
 
 		iterator first(cb,cont.end(),bb,bool_c.end());
 		return first;
