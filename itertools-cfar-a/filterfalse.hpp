@@ -28,12 +28,10 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
 		    }
 
 		auto operator*() {
-
             return *container_iter;
 		}
 
 		auto* operator->() {
-
 			return *container_iter;
 		}
 
@@ -41,7 +39,7 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
 		iterator& operator++() {
 			container_iter++;
             while(func(*container_iter)&&container_iter!=container_end)
-            container_iter++;
+            	container_iter++;
 			return *this;
 		}
 
@@ -50,7 +48,7 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
 			iterator tmp= *this;
 			container_iter++;
             while(func(*container_iter)&&container_iter!=container_end)
-            container_iter++;
+            	container_iter++;
 			return tmp;
 		}
 

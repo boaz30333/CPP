@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  #pragma once
 
 
@@ -27,17 +28,66 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
 
 		auto operator*() {
 
+=======
+#pragma once
+
+using namespace std;
+
+namespace itertools{
+	template<typename T,typename B> 
+    class compress{
+		T container;
+		B boole;
+    
+    public:
+         compress(T m ,B boolean):container(m), boole(boolean){}
+
+        class iterator {
+
+	    private:
+			typename T::iterator container_iter;
+			typename T::iterator container_end;
+			typename B::iterator bool_iter;
+			typename B::iterator bool_end;
+
+	    public:
+
+		    iterator(typename T::iterator begins,typename T::iterator ends, typename B::iterator bool_begins,typename B::iterator bool_ends)
+			: container_iter(begins), container_end(ends), bool_iter(bool_begins), bool_end(bool_ends) {
+		    }
+
+		auto operator*() {
+			while(*(bool_iter)==false&&container_iter!=container_end){
+            	container_iter++;
+				bool_iter++;
+			}
+            //  if(container_iter==container_end)
+            //  return;
+            //   throw string("dfgdfgd");
+>>>>>>> af6c4e7f36c545216bef77947db242e4bcb460a5
             return *container_iter;
 		}
 
 		auto* operator->() {
+<<<<<<< HEAD
 
 			return *container_iter;
+=======
+			while(*(bool_iter)==false&&container_iter!=container_end){
+            	container_iter++;
+				bool_iter++;
+			}
+            //  if(container_iter==container_end)
+            //  return;
+            //   throw string("dfgdfgd");
+            return *container_iter;
+>>>>>>> af6c4e7f36c545216bef77947db242e4bcb460a5
 		}
 
 		// ++i;
 		iterator& operator++() {
 			container_iter++;
+<<<<<<< HEAD
             bool_iter++;
         while((*bool_iter)==false&&container_iter!=container_end&&bool_iter!=bool_end)
             {
@@ -61,6 +111,24 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
             }
         if((container_iter!=container_end&&bool_iter==bool_end)||(container_iter==container_end&&bool_iter!=bool_end))
             throw string("error- containers no same size");
+=======
+            while(*(bool_iter)==false&&container_iter!=container_end){
+            	container_iter++;
+				bool_iter++;
+			}
+			return *this;
+		}
+
+		// i++;
+		// Usually iterators are passed by value and not by const& as they are small.
+		const iterator operator++(int) {
+			iterator tmp= *this;
+			container_iter++;
+            while(*(bool_iter)==false&&container_iter!=container_end){
+            	container_iter++;
+				bool_iter++;
+			}
+>>>>>>> af6c4e7f36c545216bef77947db242e4bcb460a5
 			return tmp;
 		}
 
@@ -69,11 +137,16 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
 		}
 
 		bool operator!=(const iterator& rhs) const {
+<<<<<<< HEAD
 			return !(container_iter == rhs.container_iter && bool_iter ==rhs.bool_iter);
+=======
+			return !(container_iter == rhs.container_iter);
+>>>>>>> af6c4e7f36c545216bef77947db242e4bcb460a5
 		}
 	};  // END OF CLASS ITERATOR
 
 	iterator begin() {
+<<<<<<< HEAD
       typename  K::iterator cb =cont.begin();
 typename T::iterator bb= bool_c.begin();
         while((*bb)==false&&cb!=cont.end()&&bb!=bool_c.end())
@@ -93,4 +166,14 @@ typename T::iterator bb= bool_c.begin();
 return iterator(cont.end(),cont.end(),bool_c.end(),bool_c.end());
 	}
     };
+=======
+		return iterator{container.begin(),container.end(), boole.begin(), boole.end()};
+	}
+	
+	iterator end() {
+		return iterator{container.end(),container.end(), boole.end(), boole.end()};
+	}
+    };
+
+>>>>>>> af6c4e7f36c545216bef77947db242e4bcb460a5
 }
