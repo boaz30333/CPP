@@ -11,7 +11,7 @@
 #include "range.hpp"
 #include "accumulate.hpp"
 #include "filterfalse.hpp"
-// #include "compress.hpp"
+#include "compress.hpp"
 
 
 using namespace itertools;
@@ -19,7 +19,7 @@ using namespace std;
 
 
 struct lessThan3 {
-    bool operator()(int i) const { return i < 5; }
+    bool operator()(int i) const { return i < 3; }
 };
 
 int main(int argc, const char * argv[]) {
@@ -48,32 +48,43 @@ int main(int argc, const char * argv[]) {
     cout << endl;
     cout << "####  Filter False:  ####";
     cout << endl << "Filter out all numbers less than 3 in vector{1,2,3,4}: " << endl;
-try{
+// try{
     for (auto i: filterfalse(lessThan3{}, vecInt) )
         cout << i << " ";   // 3 4
-}
-catch (string ex) {
+// }
+// catch (string ex) {
     
-      std::cout << ex;
-  }
+//       std::cout << ex;
+//   }
     cout << endl << "Filter out all even numbers in range(5,9): " << endl;
     for (auto i: filterfalse([](int i){return i%2==0;}, range(5,9)) )
         cout << i << " ";   // 5 7
     cout << endl << endl;
 
-    // cout << "####  compress:  ####";
-    // vector<bool> ttft {true,true,false,true};
+    cout << "####  compress:  ####";
+    vector<bool> ttft {true,true,false,true};
 
-    // cout << endl << "compress a string" << endl;
-    // for (auto i: compress(string("abcd"), ttft))
-    //     cout << i << " ";  // a b d
+    cout << endl << "compress a string" << endl;
+// try{
+    for (auto i: compress(string("abcd"), ttft))
+        cout << i << " ";  // a b d
+// }
+// catch (string ex) {
+    
+//       std::cout << ex;
+//   }
+    cout << endl << "compress a range" << endl;
+    // try{
+    for (auto i: compress(range(5,9), ttft))
+        cout << i << " ";  // 5 6 8
+    // }
+//     catch (string ex) {
+    
+//       std::cout << ex;
+//   }
+    cout << endl << endl;
 
-    // cout << endl << "compress a range" << endl;
-    // for (auto i: compress(range(5,9), ttft))
-    //     cout << i << " ";  // 5 6 8
-    // cout << endl << endl;
 
-
-    // cout << endl;
+    cout << endl;
     return 0;
 }
