@@ -34,18 +34,18 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
 
 		auto operator*() {
             while(func(*container_iter)&&container_iter!=container_end)
-            container_iter++;
-             if(container_iter==container_end)
-             return;
+            	container_iter++;
+            //  if(container_iter==container_end)
+            //  return;
             //   throw string("dfgdfgd");
             return *container_iter;
 		}
 
 		auto* operator->() {
             while(func(*container_iter)&&container_iter!=container_end)
-            container_iter++;
-             if(container_iter==container_end) 
-             return;
+            	container_iter++;
+            //  if(container_iter==container_end) 
+            //  return;
             //   throw string("dfgdfgd");
 			return *container_iter;
 		}
@@ -55,7 +55,7 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
 			//++pointer_to_current_node;
 			container_iter++;
             while(func(*container_iter)&&container_iter!=container_end)
-            container_iter++;
+            	container_iter++;
 			return *this;
 		}
 
@@ -65,7 +65,7 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
 			iterator tmp= *this;
 			container_iter++;
             while(func(*container_iter)&&container_iter!=container_end)
-            container_iter++;
+            	container_iter++;
 			return tmp;
 		}
 

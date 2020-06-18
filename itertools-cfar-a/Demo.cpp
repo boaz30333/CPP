@@ -11,7 +11,7 @@
 #include "range.hpp"
 #include "accumulate.hpp"
 #include "filterfalse.hpp"
-// #include "compress.hpp"
+#include "compress.hpp"
 
 
 using namespace itertools;
@@ -19,7 +19,7 @@ using namespace std;
 
 
 struct lessThan3 {
-    bool operator()(int i) const { return i < 5; }
+    bool operator()(int i) const { return i < 3; }
 };
 
 int main(int argc, const char * argv[]) {
@@ -28,6 +28,8 @@ int main(int argc, const char * argv[]) {
 	for (int i: range(5,9))
 		cout << i << " ";      // 5 6 7 8
 
+    // for (int i: range(5,10))
+	// 	cout << i << " ";      // 5 6 7 8
     vector<int> vecInt = {1,2,3,4};
     vector<string> vecString = {"Hello", "Bye", "Adam"};
     vector<float> vecFloat = {-1, 0.3, 5.2, -8.3};
@@ -37,10 +39,10 @@ int main(int argc, const char * argv[]) {
 	for (int i: accumulate(range(5,9)))
 		cout << i << " ";      // 5 11 18 26
 
-    // cout << endl << "accumulate of vector<string>: " << endl;
-    // for (auto i: accumulate(vecString) )
-    //     cout << i << " ";  // Hello HelloBye HelloByeAdam
-    // cout << endl << endl;
+    cout << endl << "accumulate of vector<string>: " << endl;
+    for (auto i: accumulate(vecString) )
+        cout << i << " ";  // Hello HelloBye HelloByeAdam
+    cout << endl << endl;
 
     cout << endl << "accumulate of range with binary operator: " << endl;
 	for (int i: accumulate(range(5,9), [](int x, int y){return x*y;}))
@@ -61,17 +63,17 @@ catch (string ex) {
         cout << i << " ";   // 5 7
     cout << endl << endl;
 
-    // cout << "####  compress:  ####";
-    // vector<bool> ttft {true,true,false,true};
+    cout << "####  compress:  ####";
+    vector<bool> ttft {true,true,false,true};
 
-    // cout << endl << "compress a string" << endl;
-    // for (auto i: compress(string("abcd"), ttft))
-    //     cout << i << " ";  // a b d
+    cout << endl << "compress a string" << endl;
+    for (auto i: compress(string("abcd"), ttft))
+        cout << i << " ";  // a b d
 
-    // cout << endl << "compress a range" << endl;
-    // for (auto i: compress(range(5,9), ttft))
-    //     cout << i << " ";  // 5 6 8
-    // cout << endl << endl;
+    cout << endl << "compress a range" << endl;
+    for (auto i: compress(range(5,9), ttft))
+        cout << i << " ";  // 5 6 8
+    cout << endl << endl;
 
 
     cout << endl;
