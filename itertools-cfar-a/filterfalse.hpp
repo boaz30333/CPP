@@ -10,7 +10,7 @@
 	T container;
 	F func;
     public:
-        filterfalse(F function,T m):container(m),func(function){
+        filterfalse(const F& function,const T& m):container(m),func(function){
 		}
 
         class iterator {

@@ -10,7 +10,7 @@
 	T bool_c;
 	K cont;
     public:
-        compress(K con,T m):cont(con),bool_c(m){
+        compress(const K& con,const T& m):cont(con),bool_c(m){
 		}
 
         class iterator {

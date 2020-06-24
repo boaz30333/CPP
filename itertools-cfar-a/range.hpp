@@ -9,7 +9,9 @@ namespace itertools{
 
     public:
         range(int begin, int end):begins(begin), ends(end){}
-
+// int operator[] (int index){
+// 	return *(iterator(begins));
+// }
         class iterator {
 
 	    private:

@@ -1,5 +1,5 @@
-#pragma once
-
+  #pragma once
+#include <type_traits>
 
 
  namespace itertools{
@@ -12,22 +12,27 @@
         } add;
 	template<typename T,typename F = add> 
     class accumulate{
+		using ret_t = typename std::decay<decltype(*(declval<T>().begin()))>::type;
+
 	T container;
 	F func;
     public:
-        accumulate(T m ,F function = add()):container(m),func(function){
+        accumulate(const T& m ,const F& function = add()):container(m),func(function){
 		}
 
         class iterator {
 	    private:
 		typename T::iterator container_iter;
 		typename T::iterator container_end;
-
-		decltype(*(container_iter))  data ;
+		ret_t data ;
+		// decltype(*(container_iter))  data ;
 			 F func;
 	    public:
 		    iterator(typename T::iterator begins,typename T::iterator ends,F function)
-			: container_iter(begins),container_end(ends),func(function),data(*begins){
+			: container_iter(begins),container_end(ends),func(function){
+				if (container_iter!=container_end ){
+					data=*begins;
+				}
 		    }
 iterator(const iterator& other):container_iter(other.container_iter),container_end(other.container_end),func(other.func),data(*(other.container_iter)){
 		    }
@@ -77,4 +82,9 @@ iterator(const iterator& other):container_iter(other.container_iter),container_e
 return iterator(container.end(),container.end(),func);
 	}
     };
+
+
+
+
+
 }

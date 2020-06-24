@@ -8,7 +8,7 @@
             "name": "cpp - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "$demo",
+            "program": "/root/ex/CPP/itertools-cfar-a/test",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

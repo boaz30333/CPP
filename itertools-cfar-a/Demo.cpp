@@ -12,6 +12,7 @@
 #include "accumulate.hpp"
 #include "filterfalse.hpp"
 #include "compress.hpp"
+#include <set>
 
 
 using namespace itertools;
@@ -43,7 +44,12 @@ int main(int argc, const char * argv[]) {
     for (auto i: accumulate(vecString) )
         cout << i << " ";  // Hello HelloBye HelloByeAdam
     cout << endl << endl;
-
+   
+    for (int i: accumulate(set{3,4,5,6,7,8},[](int x, int y){return x+y;})) // 
+    {
+               cout << i << " ";  // Hello HelloBye HelloByeAdam
+ 
+    }
     cout << endl << "accumulate of range with binary operator: " << endl;
 	for (int i: accumulate(range(5,9), [](int x, int y){return x*y;}))
 		cout << i << " ";      // 5 30 210 1680
