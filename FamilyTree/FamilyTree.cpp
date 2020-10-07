@@ -1,13 +1,13 @@
-
 #include "FamilyTree.hpp"
 #include <iostream>
 #include <string>
 
 #define COUNT 10 
+
 namespace family{
 using namespace std;
 Tree::Tree(string name){
-	root=(person *) malloc(sizeof(person));
+	root = new person();
 	if(root==NULL) {
 		cout<<"error"<<endl;
 		return;
@@ -20,7 +20,7 @@ Tree::Tree(string name){
 }
 
 Tree::~Tree(){
-	remove(&root);
+	remove(&(this->root));
 }
 
 void Tree::remove(person ** person){
@@ -37,9 +37,8 @@ Tree& Tree:: addFather(string child,string father){
 	  __throw_invalid_argument("try to add father to son not exist");
 		if(son->father!=NULL)
 		  __throw_logic_error("try to add father to son already has ons");
-	son->father=(person *) malloc(sizeof(person));
+	son->father = new person();
 	if(son->father==nullptr) __throw_bad_alloc;
-
 	(son->father)->name=father;
 	if(son->rltd==string("me")) 
 	(son->father)->rltd="father";
@@ -49,9 +48,7 @@ Tree& Tree:: addFather(string child,string father){
 		size_t found =(son->father)->rltd.find("mother");
 	if(found!=  string::npos) (son->father)->rltd.replace(found,6,"father");
 	}
-	return *this;
-
-	
+	return *this;	
 }
 
 Tree& Tree:: addMother(string child,string mother){
@@ -60,7 +57,7 @@ Tree& Tree:: addMother(string child,string mother){
 	  __throw_invalid_argument("try to add mother to son not exist");
 		if(son->mother!=NULL)
 		  __throw_logic_error("try to add mother to son already has ons");
-	son->mother=(person *) malloc(sizeof(person));
+	son->mother = new person();
 	if(son->mother==nullptr) __throw_bad_alloc;
 	(son->mother)->name=mother;
 	if(son->rltd==string("me")) 
@@ -71,11 +68,12 @@ Tree& Tree:: addMother(string child,string mother){
 	size_t found =(son->mother)->rltd.find("father");
 	if(found!= string::npos) (son->mother)->rltd.replace(found,6,"mother");
 	}
-
 	return *this;
 }
 
 void Tree:: remove(string name){
+	if((this->root)->name==string (name))
+		__throw_invalid_argument("cannot remove the root!");
 person **son = searchRemove(name,&this->root);
 	if(son==NULL)
 	  __throw_invalid_argument("Did not find the person in family tree");

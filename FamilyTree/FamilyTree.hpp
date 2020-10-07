@@ -5,9 +5,9 @@
 namespace family{
     using namespace std;
 
-		    struct person{
-		string name;
-		string rltd;
+    struct person{
+		string name="";
+		string rltd="";
 		person * father;
 		person * mother;
 	};
@@ -23,11 +23,8 @@ namespace family{
 		void display() ;
 		string relation(string person);
 		string find(string person);
-		//string get_name();
 		person * get_root();
-		//person * get_left();
 		void set_father(string name);
-		//person * get_right();
 		void set_mother(string name);
 
 
@@ -43,4 +40,3 @@ namespace family{
 
 	};
 }
-
