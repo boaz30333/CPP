@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "numeric": "cpp",
-        "type_traits": "cpp",
-        "random": "cpp"
-    },
-    "C_Cpp.errorSquiggles": "Disabled"
-}

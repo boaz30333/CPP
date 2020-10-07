@@ -1,4 +1,4 @@
-  #pragma once
+ #pragma once
 #include <type_traits>
 
 
@@ -14,7 +14,7 @@
     class accumulate{
 		using ret_t = typename std::decay<decltype(*(declval<T>().begin()))>::type;
 
-	T container;
+	T& container;
 	F func;
     public:
         accumulate(const T& m ,const F& function = add()):container(m),func(function){
