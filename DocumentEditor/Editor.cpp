@@ -16,9 +16,9 @@ Editor::Editor()
 }
 Editor::Editor(char *filename)
 {
-    std::ifstream infile(filename);
-    std::string str;
-    while (std::getline(infile, str))
+    ifstream infile(filename);
+    string str;
+    while (getline(infile, str))
     {
         this->doc.bufferLines.push_back(str);
     }
@@ -26,8 +26,8 @@ Editor::Editor(char *filename)
 }
 void Editor::loop()
 {
-    std::string str;
-    while (std::getline(cin, str))
+    string str;
+    while (getline(cin, str))
     {
         if (str.size() == 1&&(str[0]>57||str[0]<48)) //all cases where the command is only one char and not a number
         {
@@ -64,8 +64,8 @@ void Editor::loop()
         else if (regex_match(str, replace_pat)) // Cases where the command is more than one char and I validate it using a regular expression
         {
             str = str.substr(2, str.length() - 3);
-            std::string old_str = str.substr(0, str.find("/"));
-            std::string new_str = str.substr(str.find("/") + 1);
+            string old_str = str.substr(0, str.find("/"));
+            string new_str = str.substr(str.find("/") + 1);
             this->doc.replace_sequence(old_str, new_str);
         }
         else if (regex_match(str, jump_to_pat))

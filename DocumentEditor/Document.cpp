@@ -28,7 +28,7 @@ void Document::unify_two_next_line()
         bufferLines.at(pointer).insert(0, first_line); // insert the first line at start of second line
     }
     else
-        std::cout << "?" << std::endl;
+        cout << "?" << endl;
 }
 
 void Document::add_lines_before()
@@ -112,7 +112,7 @@ void Document::write_to_file(string str)
     ofstream myFile_Handler;
     // File Open
     myFile_Handler.open(filename);
-    for (std::string line : this->bufferLines)
+    for (string line : this->bufferLines)
     {
         // Write to the file
         myFile_Handler << line << endl;
@@ -122,8 +122,8 @@ void Document::write_to_file(string str)
 }
 void Document::add_new_lines()
 {
-    std::string str;
-    while (std::getline(cin, str))
+    string str;
+    while (getline(cin, str))
     {
         if (str.compare(".") == 0)
             break;

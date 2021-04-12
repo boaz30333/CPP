@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
         editor = make_unique<Editor>();
         break;
     default:
-        std::__throw_invalid_argument("The program can run with 1 argument at most");
+        __throw_invalid_argument("The program can run with 1 argument at most");
         break;
     }
     editor->loop();
