@@ -5,8 +5,8 @@
 #include <string>
 #include <set>
 #include <memory>
-#include "tokentype.h"
 
+#include "tokentype.h"
 
 using namespace std;
 
@@ -26,7 +26,7 @@ class varToken: public Token {
     shared_ptr<set<int>> lines = make_shared<set<int>>();
 //    shared_ptr<set<int>> lines;
 public:
-    varToken(string t) : Token(IDENTIFIER, t) {}
+    varToken(string t) : Token(tokenType::IDENTIFIER, t) {}
     void add_line(int l);
     shared_ptr<set<int>> getLines();
 };

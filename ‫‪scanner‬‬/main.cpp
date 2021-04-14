@@ -26,6 +26,8 @@ int main(int argc, char* argv[]) {
 		cout << "Variable\tLines\n\n";
 		symTab.xref();
 	}
+
+	
 	inputFile.close();
 }
 
