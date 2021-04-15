@@ -4,11 +4,12 @@
 #include <cstdlib>
 
 	void SymbolTable::initReserved(){
-    ifstream infile("reserved.txt");
+    ifstream infile("/home/osboxes/Documents/CPP/scanner/reserved.txt");
     string str;
     while (getline(infile, str))
     {
         //
+        if(str.empty()) continue;
         string reserved_word= str.substr(0,str.find("\t"));
         int enum_number= atoi((str.substr(str.find("\t")+1)).c_str());
         tokenType type= static_cast<tokenType>(enum_number);
