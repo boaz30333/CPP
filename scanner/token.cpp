@@ -11,7 +11,12 @@ return this->type;
 return this->text;
     }
     void Token::printToken(){
-cout<< tokenStrings[this->type-258]<<endl;
+       string tokenstrings;
+        if(type>=258)
+            tokenstrings=tokenStrings[this->type-258];
+            else
+           tokenstrings+=type;
+cout<< tokenstrings << " "+ this->getText()<<endl;
     }
 
     void varToken::add_line(int l){

@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 	void SymbolTable::initReserved(){
-    ifstream infile("/home/osboxes/Documents/CPP/scanner/reserved.txt");
+    ifstream infile("reserved.txt");
     string str;
     while (getline(infile, str))
     {
@@ -28,10 +28,11 @@
 	void SymbolTable::xref(){
         //https://stackoverflow.com/questions/26281979/c-loop-through-map
         for(auto const& sym: this->symMap){
-            auto token = *(sym.second.get());
-            if(token.getType()==tokenType::IDENTIFIER){
-                cout<< token.getText()<< "\t" ;
-                for (auto  line: *(token.getLines().get())){
+            auto token = sym.second.get();
+            if(token->getType()==tokenType::IDENTIFIER){
+                cout<< token->getText().c_str()<< "\t" ;
+                set<int> lines= *(token->getLines()).get();
+                for (auto  line: lines ){
                     cout<< line<< " ";
                 }
                 cout<< endl;

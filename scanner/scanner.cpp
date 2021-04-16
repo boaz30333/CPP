@@ -1,15 +1,16 @@
 #include "scanner.h"
 #include <regex>
+#include <string>
 using namespace std;
 
-regex num_pat1("[1-9](\\d)*");      //10
-regex num_pat2("(\\d)+E");          //123E4
-regex num_pat3("(\\d)*\\.(\\d)+E?"); // .123
-regex num_pat4("(\\d)+\\.(\\d)*E?"); // 123. float
+regex num_pat1("[1-9](\\d)*");                      //10
+regex num_pat2("(\\d)+[Ee][+-]?(\\d)+");            //123E4
+regex num_pat3("(\\d)*\\.(\\d)+([Ee][+-]?(\\d)+)?"); // .123
+regex num_pat4("(\\d)+\\.(\\d)*([Ee][+-]?(\\d)+)?"); // 123. float
 
 static bool isLetter(char ch)
 {
-    if (('a' <= ch <= 'z') || ('a' <= ch <= 'z') || ch == '_')
+    if (('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_')
         return true;
     else
         return false;
@@ -17,86 +18,77 @@ static bool isLetter(char ch)
 
 shared_ptr<Token> Scanner::nextToken()
 {
+
     while (this->nextChar())
     {
-
+        string str = "";
         switch (this->ch)
         {
             // skip spaces
         case '\t':
-        {
-
-        }
-            break;
         case '\n':
-            break;
         case '\r':
-            break;
         case ' ':
             break;
 
         case ';':
-            break;
         case '{':
-            break;
         case '}':
-            break;
         case ',':
-            break;
         case ':':
+        case '(':
+        case ')':
+        case '[':
+        case ']':
+        case '~':
+        case '%':
+        case '^':
+        case '?':
+        case '*':
+            return shared_ptr<Token>(new Token(static_cast<tokenType>(ch), string(1, ch)));
             break;
 
-        case '(':
-            break;
-        case ')':
-            break;
-        case '[':
-            break;
-        case ']':
-            break;
-        case '~':
-            break;
-        case '%':
-            break;
-        case '^':
-            break;
-        case '?':
-            break;
         case '\'':
         {
             this->nextChar();
             char middle = ch;
             this->nextChar();
             if (ch == '\'')
-                return shared_ptr<Token>(new Token(tokenType::CONSTANT, "" + middle));
+                return shared_ptr<Token>(new Token(tokenType::CONSTANT, string(1, middle)));
             else
                 __throw_logic_error("invalid single quote in line:" + lineno);
         }
-            break;
+        break;
+
         case '\"':
         {
-            string word = "";
-            while (this->nextChar() && ch != '\"' )
+
+            while (this->nextChar() && ch != '\"')
             {
-                word += ch;
+                str += ch;
             }
-            return shared_ptr<Token>(new Token(tokenType::STRING_LITERAL, "" + word));
+            return shared_ptr<Token>(new Token(tokenType::STRING_LITERAL, "" + str));
         }
-            break;
+        break;
+
         case '&':
             this->nextChar();
             if (ch == '&')
                 return shared_ptr<Token>(new Token(tokenType::AND_OP, "&&"));
             else
+            {
                 this->inputFile.unget();
-            break;
+                return shared_ptr<Token>(new Token(static_cast<tokenType>('&'), string(1, '&')));
+            }
         case '!':
             this->nextChar();
             if (ch == '=')
                 return shared_ptr<Token>(new Token(tokenType::NE_OP, "!="));
             else
+            {
                 this->inputFile.unget();
-            break;
+                return shared_ptr<Token>(new Token(static_cast<tokenType>('!'), string(1, '!')));
+            }
 
         case '-':
             this->nextChar();
@@ -105,51 +97,64 @@ shared_ptr<Token> Scanner::nextToken()
             else if (ch == '>')
                 return shared_ptr<Token>(new Token(tokenType::PTR_OP, "->"));
             else
+            {
                 this->inputFile.unget();
-            break;
+                return shared_ptr<Token>(new Token(static_cast<tokenType>('-'), string(1, '-')));
+            }
         case '|':
             this->nextChar();
-            if (ch == '-')
+            if (ch == '|')
                 return shared_ptr<Token>(new Token(tokenType::OR_OP, "||"));
             else
+            {
                 this->inputFile.unget();
-            break;
+                return shared_ptr<Token>(new Token(static_cast<tokenType>('|'), string(1, '|')));
+            }
         case '+':
             this->nextChar();
             if (ch == '+')
                 return shared_ptr<Token>(new Token(tokenType::INC_OP, "++"));
             else
+            {
                 this->inputFile.unget();
-            break;
+                return shared_ptr<Token>(new Token(static_cast<tokenType>('+'), string(1, '+')));
+            }
 
         case '<':
             this->nextChar();
             if (ch == '=')
                 return shared_ptr<Token>(new Token(tokenType::LE_OP, "<="));
             else
+            {
                 this->inputFile.unget();
-            break;
+                return shared_ptr<Token>(new Token(static_cast<tokenType>('<'), string(1, '<')));
+            }
+
         case '>':
             this->nextChar();
             if (ch == '=')
                 return shared_ptr<Token>(new Token(tokenType::GE_OP, ">="));
             else
+            {
                 this->inputFile.unget();
-            break;
-
+                return shared_ptr<Token>(new Token(static_cast<tokenType>('>'), string(1, '>')));
+            }
         case '=':
             this->nextChar();
             if (ch == '=')
                 return shared_ptr<Token>(new Token(tokenType::EQ_OP, "=="));
             else
+            {
                 this->inputFile.unget();
-            break;
+                return shared_ptr<Token>(new Token(static_cast<tokenType>('='), string(1, '=')));
+            }
         case '/':
 
             this->nextChar();
             if (ch != '/' && ch != '*')
             {
-                cout << "error" << endl;
+                this->inputFile.unget();
+                return shared_ptr<Token>(new Token(static_cast<tokenType>(ch), string(1, ch)));
             }
             switch (ch)
             {
@@ -159,7 +164,7 @@ shared_ptr<Token> Scanner::nextToken()
                     this->nextChar();
                 } while (ch != '\n' && ch != EOF);
                 if (ch == EOF)
-                    this->inputFile.unget();
+                    return nullptr;
                 break;
             case '*':
                 char prev = 0;
@@ -170,76 +175,74 @@ shared_ptr<Token> Scanner::nextToken()
                     prev = ch;
                 }
                 if (ch == EOF)
-                    this->inputFile.unget();
+                    return nullptr;
                 break;
             }
             break;
         default:
         {
-
+            char c = this->ch;
+            str += c;
             if (isLetter(ch))
             {
 
-                string word="";
-                char c = this->ch;
-                word.append(""+c);
                 while (this->nextChar())
                 {
-                    if (!isLetter(ch))
+                    if (!isLetter(ch) && !isdigit(ch))
                     {
-                        auto tokenp = this->symTab.lookupToken(word);
+                        auto tokenp = this->symTab.lookupToken(str);
                         if (tokenp == nullptr)
                         {
-                            shared_ptr<Token> tokenp = make_shared<Token>(IDENTIFIER, word);
+                            tokenp = make_shared<varToken>(str);
                             tokenp->add_line(this->lineno);
-                            this->symTab.insertToken(word, tokenp);
-                            this->inputFile.unget();
-                            return tokenp;
+                            this->symTab.insertToken(str, tokenp);
                         }
                         else if (tokenp->getType() == IDENTIFIER)
+                        {
                             tokenp->add_line(this->lineno);
+                        }
+                        this->inputFile.unget();
                         return tokenp;
                     }
-                    else{
-                    word += ch;
-                    printf(" %s \n",word.c_str());
+                    else
+                    {
+                        str += ch;
                     }
                 }
             }
-            if (ch == EOF)
-            {
 
-                break;
-            }
-            if ('0' <= ch <= '9')
+            else if (isdigit(ch) || ch == '.')
             {
-                string str = "" + ch;
                 while (this->nextChar())
                 {
-                    if (!(('0' <= ch <= '9') || ch == '.' || ch == 'e' || ch == 'E'))
+                    if (!(isdigit(ch) || ch == '.' || ch == 'e' || ch == 'E'))
                     {
 
-                        if (regex_match(str, num_pat1) || regex_match(str, num_pat2) || regex_match(str, num_pat3) || regex_match(str, num_pat4))
+                        shared_ptr<Token> tokenp;
+                        if (str == "0" || regex_match(str, num_pat1) || regex_match(str, num_pat2) || regex_match(str, num_pat3) || regex_match(str, num_pat4))
                         {
 
-                            shared_ptr<Token> tokenp = make_shared<Token>(CONSTANT, str);
-                            this->inputFile.unget();
-                            return tokenp;
+                            tokenp = make_shared<Token>(CONSTANT, str);
                         }
-
+                        else if (str == ".")
+                        {
+                            tokenp= make_shared<Token>(static_cast<tokenType>('.'), string(1, '.'));
+                        }
                         else
                         {
-                            shared_ptr<Token> tokenp = make_shared<Token>(ERROR, str);
-                            this->inputFile.unget();
-                            return tokenp;
+                            tokenp = make_shared<Token>(ERROR, str);
                         }
+                        this->inputFile.unget();
+                        return tokenp;
                     }
                     str += ch;
                 }
             }
+
             break;
-        }}
+        }
+        }
     }
 
-    return nullptr;
+    return nullptr; // not supposed to get there
 }

@@ -4,7 +4,7 @@ int main(int argc, char* argv[]) {
 		cout << "Usage: " << argv[0] << "--tokens | --xref  filename" << endl;
 		return 1;
 	}
-	ifstream inputFile("/home/osboxes/Documents/CPP/scanner/test4.txt");
+	ifstream inputFile(argv[2]);
 	if (! inputFile) {
 		cout << "Unable to open input file " << argv[2] << endl;
 		return 1;

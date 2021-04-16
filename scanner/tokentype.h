@@ -3,6 +3,30 @@
 
 enum tokenType
   {
+    SEMICOLON = ';',
+    LBRACE = '{',
+    RBRACE = '}',
+    COMMA = ',',
+    COLON = ':',
+    EQUALS = '=',
+    LPAREN = '(',
+    RPAREN = ')',
+    LBRACKET = '[',
+    RBRACKET = ']',
+    PERIOD = '.',
+    AMPERSAND = '&',
+    EXCLAMATION = '!',
+    TILDE = '~',
+    HYPHEN = '-',
+    PLUS = '+',
+    ASTERISK = '*',
+    SLASH = '/',
+    PERCENT = '%',
+    LESS = '<',
+    GREATER = '>',
+    CARET = '^',
+    BAR = '|',
+    QUESTION = '?',
     IDENTIFIER = 258,
     CONSTANT = 259,
     STRING_LITERAL = 260,
@@ -63,4 +87,5 @@ enum tokenType
     RETURN = 315,
     ERROR = 316
   };
+
 #endif
