@@ -45,7 +45,7 @@ shared_ptr<Token> Scanner::nextToken()
         case '^':
         case '?':
         case '*':
-            return shared_ptr<Token>(new Token(static_cast<tokenType>(ch), string(1, ch)));
+            return make_shared<Token>(static_cast<tokenType>(ch), string(1, ch));
             break;
 
         case '\'':
@@ -54,9 +54,9 @@ shared_ptr<Token> Scanner::nextToken()
             char middle = ch;
             this->nextChar();
             if (ch == '\'')
-                return shared_ptr<Token>(new Token(tokenType::CONSTANT, string(1, middle)));
+                return make_shared<Token>(tokenType::CONSTANT, string(1, middle));
             else
-                __throw_logic_error("invalid single quote in line:" + lineno);
+                return make_shared<Token>(ERROR, str);
         }
         break;
 
@@ -67,86 +67,86 @@ shared_ptr<Token> Scanner::nextToken()
             {
                 str += ch;
             }
-            return shared_ptr<Token>(new Token(tokenType::STRING_LITERAL, "" + str));
+            return make_shared<Token>(tokenType::STRING_LITERAL, "" + str);
         }
         break;
 
         case '&':
             this->nextChar();
             if (ch == '&')
-                return shared_ptr<Token>(new Token(tokenType::AND_OP, "&&"));
+                return make_shared<Token>(tokenType::AND_OP, "&&");
             else
             {
                 this->inputFile.unget();
-                return shared_ptr<Token>(new Token(static_cast<tokenType>('&'), string(1, '&')));
+                return make_shared<Token>(static_cast<tokenType>('&'), string(1, '&'));
             }
         case '!':
             this->nextChar();
             if (ch == '=')
-                return shared_ptr<Token>(new Token(tokenType::NE_OP, "!="));
+                return make_shared<Token>(tokenType::NE_OP, "!=");
             else
             {
                 this->inputFile.unget();
-                return shared_ptr<Token>(new Token(static_cast<tokenType>('!'), string(1, '!')));
+                return make_shared<Token>(static_cast<tokenType>('!'), string(1, '!'));
             }
 
         case '-':
             this->nextChar();
             if (ch == '-')
-                return shared_ptr<Token>(new Token(tokenType::DEC_OP, "--"));
+                return make_shared<Token>(tokenType::DEC_OP, "--");
             else if (ch == '>')
-                return shared_ptr<Token>(new Token(tokenType::PTR_OP, "->"));
+                return make_shared<Token>(tokenType::PTR_OP, "->");
             else
             {
                 this->inputFile.unget();
-                return shared_ptr<Token>(new Token(static_cast<tokenType>('-'), string(1, '-')));
+                return make_shared<Token>(static_cast<tokenType>('-'), string(1, '-'));
             }
         case '|':
             this->nextChar();
             if (ch == '|')
-                return shared_ptr<Token>(new Token(tokenType::OR_OP, "||"));
+                return make_shared<Token>(tokenType::OR_OP, "||");
             else
             {
                 this->inputFile.unget();
-                return shared_ptr<Token>(new Token(static_cast<tokenType>('|'), string(1, '|')));
+                return make_shared<Token>(static_cast<tokenType>('|'), string(1, '|'));
             }
         case '+':
             this->nextChar();
             if (ch == '+')
-                return shared_ptr<Token>(new Token(tokenType::INC_OP, "++"));
+                return make_shared<Token>(tokenType::INC_OP, "++");
             else
             {
                 this->inputFile.unget();
-                return shared_ptr<Token>(new Token(static_cast<tokenType>('+'), string(1, '+')));
+                return make_shared<Token>(static_cast<tokenType>('+'), string(1, '+'));
             }
 
         case '<':
             this->nextChar();
             if (ch == '=')
-                return shared_ptr<Token>(new Token(tokenType::LE_OP, "<="));
+                return make_shared<Token>(tokenType::LE_OP, "<=");
             else
             {
                 this->inputFile.unget();
-                return shared_ptr<Token>(new Token(static_cast<tokenType>('<'), string(1, '<')));
+                return make_shared<Token>(static_cast<tokenType>('<'), string(1, '<'));
             }
 
         case '>':
             this->nextChar();
             if (ch == '=')
-                return shared_ptr<Token>(new Token(tokenType::GE_OP, ">="));
+                return make_shared<Token>(tokenType::GE_OP, ">=");
             else
             {
                 this->inputFile.unget();
-                return shared_ptr<Token>(new Token(static_cast<tokenType>('>'), string(1, '>')));
+                return make_shared<Token>(static_cast<tokenType>('>'), string(1, '>'));
             }
         case '=':
             this->nextChar();
             if (ch == '=')
-                return shared_ptr<Token>(new Token(tokenType::EQ_OP, "=="));
+                return make_shared<Token>(tokenType::EQ_OP, "==");
             else
             {
                 this->inputFile.unget();
-                return shared_ptr<Token>(new Token(static_cast<tokenType>('='), string(1, '=')));
+                return make_shared<Token>(static_cast<tokenType>('='), string(1, '='));
             }
         case '/':
 
@@ -154,7 +154,7 @@ shared_ptr<Token> Scanner::nextToken()
             if (ch != '/' && ch != '*')
             {
                 this->inputFile.unget();
-                return shared_ptr<Token>(new Token(static_cast<tokenType>(ch), string(1, ch)));
+                return make_shared<Token>(static_cast<tokenType>(ch), string(1, ch));
             }
             switch (ch)
             {
@@ -226,7 +226,7 @@ shared_ptr<Token> Scanner::nextToken()
                         }
                         else if (str == ".")
                         {
-                            tokenp= make_shared<Token>(static_cast<tokenType>('.'), string(1, '.'));
+                            tokenp = make_shared<Token>(static_cast<tokenType>('.'), string(1, '.'));
                         }
                         else
                         {
