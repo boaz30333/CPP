@@ -12,6 +12,7 @@ class Symbol
 
 public:
     Symbol(Type t) : type(t) {}
+    virtual ~Symbol() = default;
     Type getType() const
     {
         return this->type;
