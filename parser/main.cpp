@@ -7,8 +7,7 @@ int main(int argc, char *argv[])
 		cout << "Usage: " << argv[0] << " filename" << endl;
 		return 1;
 	}
-	// ifstream inputFile(argv[1]);
-	ifstream inputFile("test1.txt");
+	ifstream inputFile(argv[1]);
 	if (!inputFile)
 	{
 		cout << "Unable to open input file " << argv[1] << endl;

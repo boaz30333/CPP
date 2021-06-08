@@ -22,14 +22,12 @@ void Parser::parse()
         }
         else if (x->getType() == Type::TERM)
         {
-            cout << "syntax error\n"
-                 << endl;
+            cout << "syntax error"<< endl;
             break;
         }
         else if (table[x->getSymbol()][a] == -1)
         {
-            cout << "syntax error\n"
-                 << endl;
+            cout << "syntax error"<< endl;
             break;
         }
         else
