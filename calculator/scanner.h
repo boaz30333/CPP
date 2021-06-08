@@ -39,3 +39,7 @@ int declaration();
 int expression();
 int term();
 int primary();
+int rel();
+int join();
+int boolean();
+

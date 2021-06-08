@@ -21,8 +21,16 @@ Token Token_stream::get()
         cin.get(ch);
     }
     switch (ch) {
-    case '(': case ')': case '+': case '-': case '*': case '/': case '=': case 'q':
+    case '(': case ')': case '+': case '-': case '*': case '/': case '=': case 'q':case '<':case '>':case '!':case '&':case '|':
         return Token(ch);   // let each character represent itself
+    case '\\': 
+    cin.get(ch); 
+    if (ch=='\n') return get();
+    else {
+        cin.unget();
+        throw runtime_error("Bad token");
+    }
+    break;
     default:
     if (isdigit(ch)) {
 	string s;
