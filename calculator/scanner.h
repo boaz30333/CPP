@@ -11,6 +11,8 @@ enum Tokens {
     ID = 21,
     INT = 22,
     EOL = 23,
+    IF =24,
+    ELSE=25,
 };
 
 class Token{

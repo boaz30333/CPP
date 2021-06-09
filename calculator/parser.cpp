@@ -12,6 +12,20 @@ int statement()
     {
     case INT:
         return declaration();
+    case IF:
+    {
+       int cond= boolean();
+       int ifTrue= boolean();
+       t = ts.get(); //suppose to be else
+       if(t.kind!= ELSE){
+           throw runtime_error("'else' expected");
+       }
+        int ifFalse= boolean();
+        if(cond) {
+            return ifTrue;
+        }
+        else return ifFalse;
+    }
     default:
         ts.putback(t); // put t back into the token stream
         return boolean();

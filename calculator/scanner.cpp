@@ -45,7 +45,9 @@ Token Token_stream::get()
 	s += ch;
 	while (cin.get(ch) && (isalpha(ch) || isdigit(ch) || ch=='_')) s += ch;
 	cin.unget();
-        if (s == "int") return Token(INT);	    
+        if (s == "int") return Token(INT);	
+        if(s=="if")    return Token(IF);
+        if(s=="else")    return Token(ELSE);	
         if (regex_match(s, regex("[A-Za-z][A-Za-z0-9]*")))
             return Token(ID, s);
         else
